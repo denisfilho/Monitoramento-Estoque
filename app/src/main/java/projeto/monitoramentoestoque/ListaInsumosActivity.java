@@ -25,7 +25,6 @@ public class ListaInsumosActivity extends AppCompatActivity {
         for (int i = 1; i <9; i++){
             dao.insere(new Insumo("Insumo " + i, i));
         }
-
         List<Insumo> todosInsumos = dao.todos();
 
 

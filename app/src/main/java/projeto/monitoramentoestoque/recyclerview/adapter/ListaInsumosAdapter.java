@@ -9,15 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-import projeto.monitoramentoestoque.ListaInsumosActivity;
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
 
-public class ListaInsumosAdapter extends RecyclerView.Adapter {
+public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapter.InsumoViewHolder> {
     private List<Insumo> insumos;
     private Context context;
 
@@ -28,19 +25,15 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaInsumosAdapter.InsumoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewCriada = LayoutInflater.from(context). inflate(R.layout.item_insumo, parent, false);
         return new InsumoViewHolder(viewCriada);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListaInsumosAdapter.InsumoViewHolder holder, int position) {
         Insumo insumo = insumos.get(position);
-        TextView nomeInsumo = holder.itemView.findViewById(R.id.item_insumo_nome);
-        nomeInsumo.setText(insumo.getNome());
-
-        TextView estoqueAtualInsumo = holder.itemView.findViewById(R.id.item_estoque_atual);
-        estoqueAtualInsumo.setText("Estoque Atual: " + Integer.toString(insumo.getEstoqueAtual()));
+        holder.vincular(insumo);
     }
 
     @Override
@@ -49,8 +42,18 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter {
     }
 
     class InsumoViewHolder extends RecyclerView.ViewHolder {
+        private final TextView nomeInsumo;
+        private final TextView estoqueAtualInsumo;
+
         public InsumoViewHolder(View itemView) {
             super(itemView);
+            nomeInsumo = itemView.findViewById(R.id.item_insumo_nome);
+            estoqueAtualInsumo = itemView.findViewById(R.id.item_estoque_atual);
+        }
+
+        private void vincular(Insumo insumo) {
+            nomeInsumo.setText(insumo.getNome());
+            estoqueAtualInsumo.setText("Estoque Atual: " + Integer.toString(insumo.getEstoqueAtual()));
         }
     }
 }
