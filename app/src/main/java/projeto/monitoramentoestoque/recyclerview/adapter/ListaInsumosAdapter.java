@@ -15,8 +15,8 @@ import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
 
 public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapter.InsumoViewHolder> {
-    private List<Insumo> insumos;
-    private Context context;
+    private final List<Insumo> insumos;
+    private final Context context;
 
     public ListaInsumosAdapter(Context context, List<Insumo> insumos) {
         this.insumos = insumos;
@@ -52,6 +52,10 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
         }
 
         private void vincular(Insumo insumo) {
+            preencheCampos(insumo);
+        }
+
+        private void preencheCampos(Insumo insumo) {
             nomeInsumo.setText(insumo.getNome());
             estoqueAtualInsumo.setText("Estoque Atual: " + Integer.toString(insumo.getEstoqueAtual()));
         }
