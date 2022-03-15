@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoramentoEstoque">
         <activity
-            android:name=".ListaInsumosActivity"
+            android:name=".activity.FormularioInsumoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ListaInsumosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

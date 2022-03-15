@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FormularioInsumoActivity">
+
+    <TextView
+        android:id="@+id/formulario_insumo_fixo_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Nome do Insumo:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/formulario_insumo_nome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Digite o nome"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintStart_toEndOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintTop_toTopOf="@+id/formulario_insumo_fixo_nome" />
+
+    <TextView
+        android:id="@+id/formulario_insumo_esoque"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Estoque:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintTop_toBottomOf="@+id/formulario_insumo_fixo_nome" />
+
+    <EditText
+        android:id="@+id/formulario_insumo_estoque"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:hint="Digite a quantidade"
+        app:layout_constraintBottom_toBottomOf="@+id/formulario_insumo_esoque"
+        app:layout_constraintStart_toEndOf="@+id/formulario_insumo_esoque"
+        app:layout_constraintTop_toTopOf="@+id/formulario_insumo_esoque" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

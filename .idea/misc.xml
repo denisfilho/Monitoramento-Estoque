@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_formulario_insumo.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_lista_insumos.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_insumo.xml" value="0.5" />
       </map>
