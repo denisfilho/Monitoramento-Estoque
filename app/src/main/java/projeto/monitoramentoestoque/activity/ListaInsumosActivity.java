@@ -35,6 +35,14 @@ public class ListaInsumosActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        InsumoDAO dao = new InsumoDAO();
+        List<Insumo> todosInsumos = dao.todos();
+        configuraRecyclerView(todosInsumos);
+        super.onResume();
+    }
+
     private List<Insumo> insumosDeExemplo() {
         InsumoDAO dao = new InsumoDAO();
         for (int i = 1; i <9; i++){
