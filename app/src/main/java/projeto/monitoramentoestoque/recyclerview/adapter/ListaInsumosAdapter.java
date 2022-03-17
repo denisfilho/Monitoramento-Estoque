@@ -60,4 +60,9 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
             estoqueAtualInsumo.setText("Estoque Atual: " + Integer.toString(insumo.getEstoqueAtual()));
         }
     }
+
+    public void adiciona (Insumo insumo){
+        insumos.add(insumo);
+        notifyDataSetChanged();
+    }
 }

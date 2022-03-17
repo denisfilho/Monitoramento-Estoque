@@ -1,5 +1,6 @@
 package projeto.monitoramentoestoque.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.List;
 
 import projeto.monitoramentoestoque.R;
@@ -33,17 +35,24 @@ public class ListaInsumosActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent iniciaFormularioInsumo = new Intent(ListaInsumosActivity.this, FormularioInsumoActivity.class);
-                startActivity(iniciaFormularioInsumo);
+                startActivityForResult(iniciaFormularioInsumo, 1);
             }
         });
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == 1 && resultCode == 2 && data.hasExtra("insumo")){
+            Insumo insumoRecebido = (Insumo) data.getSerializableExtra("insumo");
+            new InsumoDAO().insere(insumoRecebido);
+            adapter.adiciona(insumoRecebido);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onResume() {
-        InsumoDAO dao = new InsumoDAO();
-        todosInsumos.clear();
-        todosInsumos.addAll(dao.todos());
-        adapter.notifyDataSetChanged();
         super.onResume();
     }
 

@@ -3,6 +3,7 @@ package projeto.monitoramentoestoque.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,9 @@ public class FormularioInsumoActivity extends AppCompatActivity {
             EditText nome = findViewById(R.id.formulario_insumo_nome);
             EditText estoque = findViewById(R.id.formulario_insumo_estoque);
             Insumo insumoCriado = new Insumo(nome.getText().toString(), Integer.parseInt(estoque.getText().toString()));
-            new InsumoDAO().insere(insumoCriado);
+            Intent resultadoInsercao = new Intent();
+            resultadoInsercao.putExtra("insumo", insumoCriado);
+            setResult(2, resultadoInsercao);
             finish();
         }
         return super.onOptionsItemSelected(item);
