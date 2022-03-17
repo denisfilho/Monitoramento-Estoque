@@ -18,11 +18,14 @@ import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 
 public class ListaInsumosActivity extends AppCompatActivity {
 
+    private List<Insumo> todosInsumos;
+    private ListaInsumosAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_insumos);
-        List<Insumo> todosInsumos = insumosDeExemplo();
+        todosInsumos = insumosDeExemplo();
         configuraRecyclerView(todosInsumos);
 
         Button botaoInsereInsumo = findViewById(R.id.lista_insumos_bota_insere_insumo);
@@ -38,8 +41,9 @@ public class ListaInsumosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         InsumoDAO dao = new InsumoDAO();
-        List<Insumo> todosInsumos = dao.todos();
-        configuraRecyclerView(todosInsumos);
+        todosInsumos.clear();
+        todosInsumos.addAll(dao.todos());
+        adapter.notifyDataSetChanged();
         super.onResume();
     }
 
@@ -64,6 +68,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
     }
 
     private void configuraAdapter(List<Insumo> todosInsumos, RecyclerView listaInsumos) {
-        listaInsumos.setAdapter(new ListaInsumosAdapter(this, todosInsumos));
+        adapter = new ListaInsumosAdapter(this, todosInsumos);
+        listaInsumos.setAdapter(adapter);
     }
 }
