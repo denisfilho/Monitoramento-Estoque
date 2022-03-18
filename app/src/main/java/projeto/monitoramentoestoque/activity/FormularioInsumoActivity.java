@@ -16,6 +16,9 @@ import projeto.monitoramentoestoque.model.Insumo;
 
 public class FormularioInsumoActivity extends AppCompatActivity {
 
+    public static final String CHAVE_INSUMO = "insumo";
+    public static final int CODIGO_RESULTADO_INSUMO_CRIADO = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +35,28 @@ public class FormularioInsumoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menu_formulario_insumo_ic_salva){
-            EditText nome = findViewById(R.id.formulario_insumo_nome);
-            EditText estoque = findViewById(R.id.formulario_insumo_estoque);
-            Insumo insumoCriado = new Insumo(nome.getText().toString(), Integer.parseInt(estoque.getText().toString()));
-            Intent resultadoInsercao = new Intent();
-            resultadoInsercao.putExtra("insumo", insumoCriado);
-            setResult(2, resultadoInsercao);
+        if(ehMenuSalvaInsumo(item)){
+            Insumo insumoCriado = criaInsumo();
+            retornaInsumo(insumoCriado);
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void retornaInsumo(Insumo insumo) {
+        Intent resultadoInsercao = new Intent();
+        resultadoInsercao.putExtra(CHAVE_INSUMO, insumo);
+        setResult(CODIGO_RESULTADO_INSUMO_CRIADO, resultadoInsercao);
+    }
+
+    @NonNull
+    private Insumo criaInsumo() {
+        EditText nome = findViewById(R.id.formulario_insumo_nome);
+        EditText estoque = findViewById(R.id.formulario_insumo_estoque);
+        return new Insumo(nome.getText().toString(), Integer.parseInt(estoque.getText().toString()));
+    }
+
+    private boolean ehMenuSalvaInsumo(@NonNull MenuItem item) {
+        return item.getItemId() == R.id.menu_formulario_insumo_ic_salva;
     }
 }
