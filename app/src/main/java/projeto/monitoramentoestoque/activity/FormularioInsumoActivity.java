@@ -1,5 +1,8 @@
 package projeto.monitoramentoestoque.activity;
 
+import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_INSUMO;
+import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_RESULTADO_INSUMO_CRIADO;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +19,7 @@ import projeto.monitoramentoestoque.model.Insumo;
 
 public class FormularioInsumoActivity extends AppCompatActivity {
 
-    public static final String CHAVE_INSUMO = "insumo";
-    public static final int CODIGO_RESULTADO_INSUMO_CRIADO = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
