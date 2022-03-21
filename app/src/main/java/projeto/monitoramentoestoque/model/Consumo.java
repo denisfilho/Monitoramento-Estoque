@@ -1,8 +1,9 @@
 package projeto.monitoramentoestoque.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Consumo {
+public class Consumo implements Serializable {
 
     private Date data;
     private int quantidade;
