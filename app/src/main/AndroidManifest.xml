@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoramentoEstoque">
         <activity
+            android:name=".activity.InformacaoInsumoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.FormularioInsumoActivity"
             android:exported="false" />
         <activity
