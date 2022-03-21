@@ -6,4 +6,160 @@
     android:layout_height="match_parent"
     tools:context=".activity.InformacaoInsumoActivity">
 
+    <TextView
+        android:id="@+id/informacao_insumo_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp"
+        tools:text="Nome do Insumo" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_textofixo_informacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Informações"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_nome"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_nome"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_nome" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_unidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_textofixo_informacoes"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_textofixo_informacoes"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_textofixo_informacoes"
+        tools:text="Unidade: "/>
+
+    <TextView
+        android:id="@+id/informacao_insumo_estoque_atual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_unidade"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_unidade"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_unidade"
+        tools:text="Estoque Atual: " />
+
+    <TextView
+        android:id="@+id/informacao_insumo_data_compra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_estoque_atual"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_estoque_atual"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_estoque_atual"
+        tools:text="Data de Compra: "/>
+
+    <TextView
+        android:id="@+id/informacao_insumo_data_ultima_atualizacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_data_compra"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_data_compra"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_data_compra"
+        tools:text="Última Atualização: "/>
+
+    <TextView
+        android:id="@+id/informacao_insumo_textofixo_inserir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inserir"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_data_ultima_atualizacao"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_data_ultima_atualizacao"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_data_ultima_atualizacao" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_inserir_nova_entrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nova Entrada"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_textofixo_inserir"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_textofixo_inserir"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_textofixo_inserir" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_inserir_novo_consumo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novo Consumo"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_inserir_nova_entrada"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_inserir_nova_entrada"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_inserir_nova_entrada" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_textofixo_historico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Histórico"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_inserir_novo_consumo"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_inserir_novo_consumo"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_inserir_novo_consumo" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_historico_entradas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Entradas"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_textofixo_historico"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_textofixo_historico"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_textofixo_historico" />
+
+    <TextView
+        android:id="@+id/informacao_insumo_historico_consumo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Consumo"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_historico_entradas"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_historico_entradas"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_historico_entradas" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

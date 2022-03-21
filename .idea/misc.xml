@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_formulario_insumo.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_informacao_insumo.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_lista_insumos.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_insumo.xml" value="0.5" />
         <entry key="app/src/main/res/menu/menu_formulario_insumo_salva.xml" value="0.23229166666666667" />
@@ -15,5 +16,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
