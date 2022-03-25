@@ -29,7 +29,30 @@
         app:layout_constraintBottom_toBottomOf="@+id/formulario_insumo_fixo_nome"
         app:layout_constraintStart_toEndOf="@+id/formulario_insumo_fixo_nome"
         app:layout_constraintTop_toTopOf="@+id/formulario_insumo_fixo_nome" />
+    <TextView
+        android:id="@+id/formulario_insumo_fixo_unidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Unidade:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintTop_toBottomOf="@+id/formulario_insumo_fixo_nome" />
 
+    <EditText
+        android:id="@+id/formulario_insumo_unidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textCapCharacters"
+        android:textSize="20sp"
+        android:hint="Digite a unidade"
+        app:layout_constraintBottom_toBottomOf="@+id/formulario_insumo_fixo_unidade"
+        app:layout_constraintStart_toEndOf="@+id/formulario_insumo_fixo_unidade"
+        app:layout_constraintTop_toTopOf="@+id/formulario_insumo_fixo_unidade" />
     <TextView
         android:id="@+id/formulario_insumo_fixo_estoque"
         android:layout_width="0dp"
@@ -39,10 +62,10 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="viewEnd"
-        app:layout_constraintEnd_toEndOf="@+id/formulario_insumo_fixo_nome"
+        app:layout_constraintEnd_toEndOf="@+id/formulario_insumo_fixo_unidade"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/formulario_insumo_fixo_nome"
-        app:layout_constraintTop_toBottomOf="@+id/formulario_insumo_fixo_nome" />
+        app:layout_constraintStart_toStartOf="@+id/formulario_insumo_fixo_unidade"
+        app:layout_constraintTop_toBottomOf="@+id/formulario_insumo_fixo_unidade" />
 
     <EditText
         android:id="@+id/formulario_insumo_estoque"

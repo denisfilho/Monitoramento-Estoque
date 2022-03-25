@@ -71,7 +71,7 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
 
         private void preencheCampos(Insumo insumo) {
             nomeInsumo.setText(insumo.getNome());
-            estoqueAtualInsumo.setText("Estoque Atual: " + Integer.toString(insumo.getEstoqueAtual()));
+            estoqueAtualInsumo.setText("Estoque Atual: " + Double.toString(insumo.getEstoqueAtual()));
         }
     }
 

@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.Calendar;
+
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.dao.InsumoDAO;
 import projeto.monitoramentoestoque.model.Insumo;
@@ -54,8 +56,9 @@ public class FormularioInsumoActivity extends AppCompatActivity {
     @NonNull
     private Insumo criaInsumo() {
         EditText nome = findViewById(R.id.formulario_insumo_nome);
+        EditText unidade = findViewById(R.id.formulario_insumo_unidade);
         EditText estoque = findViewById(R.id.formulario_insumo_estoque);
-        return new Insumo(nome.getText().toString(), Integer.parseInt(estoque.getText().toString()));
+        return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), Calendar.getInstance());
     }
 
     private boolean ehMenuSalvaInsumo(@NonNull MenuItem item) {

@@ -34,10 +34,7 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             unidadeInsumoRecebido.setText("Unidade: ");
 
             TextView estoqueAtualInsumoRecebido = findViewById(R.id.informacao_insumo_estoque_atual);
-            estoqueAtualInsumoRecebido.setText("Estoque Atual: " + Integer.toString(insumoRecebido.getEstoqueAtual()));
-
-            TextView dataCompraInsumoRecebido = findViewById(R.id.informacao_insumo_data_compra);
-            dataCompraInsumoRecebido.setText("Data de Compra: ");
+            estoqueAtualInsumoRecebido.setText("Estoque Atual: " + Double.toString(insumoRecebido.getEstoqueAtual()));
 
             TextView ultimaAtualizacaoInsumoRecebido = findViewById(R.id.informacao_insumo_data_ultima_atualizacao);
             ultimaAtualizacaoInsumoRecebido.setText("Última Atualização: ");

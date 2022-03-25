@@ -50,23 +50,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_unidade"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/informacao_insumo_unidade"
         app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_unidade"
         tools:text="Estoque Atual: " />
-
-    <TextView
-        android:id="@+id/informacao_insumo_data_compra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_estoque_atual"
-        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_estoque_atual"
-        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_estoque_atual"
-        tools:text="Data de Compra: "/>
 
     <TextView
         android:id="@+id/informacao_insumo_data_ultima_atualizacao"
@@ -74,11 +62,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textSize="16sp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_data_compra"
-        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_data_compra"
-        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_data_compra"
-        tools:text="Última Atualização: "/>
+        app:layout_constraintEnd_toEndOf="@+id/informacao_insumo_estoque_atual"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/informacao_insumo_estoque_atual"
+        app:layout_constraintTop_toBottomOf="@+id/informacao_insumo_estoque_atual"
+        tools:text="Última Atualização: " />
 
     <TextView
         android:id="@+id/informacao_insumo_textofixo_inserir"
