@@ -1,6 +1,7 @@
 package projeto.monitoramentoestoque.activity;
 
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_INSUMO;
+import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_REQUISICAO_EXIBE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_REQUISICAO_INSERE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_RESULTADO_INSUMO_CRIADO;
 
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +23,7 @@ import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.dao.InsumoDAO;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
+import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickListener;
 
 public class ListaInsumosActivity extends AppCompatActivity {
 
@@ -107,5 +110,13 @@ public class ListaInsumosActivity extends AppCompatActivity {
     private void configuraAdapter(List<Insumo> todosInsumos, RecyclerView listaInsumos) {
         adapter = new ListaInsumosAdapter(this, todosInsumos);
         listaInsumos.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(Insumo insumo) {
+                Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
+                abreActivityInformacaoInsumo.putExtra(CHAVE_INSUMO, insumo);
+                startActivityForResult(abreActivityInformacaoInsumo,CODIGO_REQUISICAO_EXIBE_INSUMO);
+            }
+        });
     }
 }
