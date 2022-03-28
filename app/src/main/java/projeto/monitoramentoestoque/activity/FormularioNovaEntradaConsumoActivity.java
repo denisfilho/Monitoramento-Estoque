@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
@@ -50,10 +51,7 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
                     if(tituloAppBar.equals(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA)) {
                         EntradaDAO dao = new EntradaDAO();
                         try {
-                            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-                            String dataString = data.getText().toString();
-                            Calendar dataConvertida = Calendar.getInstance();
-                            dataConvertida.setTime(formatoData.parse(dataString));
+                            Calendar dataConvertida = ConverterStringParaCalendar();
                             dao.insere(new Entrada(dataConvertida, Double.parseDouble(quantidade.getText().toString())));
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -63,10 +61,7 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
                     else{
                         ConsumoDAO dao = new ConsumoDAO();
                         try {
-                            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-                            String dataString = data.getText().toString();
-                            Calendar dataConvertida = Calendar.getInstance();
-                            dataConvertida.setTime(formatoData.parse(dataString));
+                            Calendar dataConvertida = ConverterStringParaCalendar();
                             dao.insere(new Consumo(dataConvertida, Double.parseDouble(quantidade.getText().toString())));
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -77,5 +72,14 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @NonNull
+    private Calendar ConverterStringParaCalendar() throws ParseException {
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+        String dataString = data.getText().toString();
+        Calendar dataConvertida = Calendar.getInstance();
+        dataConvertida.setTime(formatoData.parse(dataString));
+        return dataConvertida;
     }
 }

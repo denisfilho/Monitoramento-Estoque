@@ -45,9 +45,7 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             botaoInserirNovaEntrada.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent iniciaFormularioNovaEntrada = new Intent(InformacaoInsumoActivity.this, FormularioNovaEntradaConsumoActivity.class);
-                    iniciaFormularioNovaEntrada.putExtra(CHAVE_REQUISICAO,CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA);
-                    startActivity(iniciaFormularioNovaEntrada);
+                    InserirEntradaOuConsumo(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA);
                 }
             });
 
@@ -55,15 +53,19 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             botaoInserirNovoConsumo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent iniciaFormularioNovoConsumo = new Intent(InformacaoInsumoActivity.this, FormularioNovaEntradaConsumoActivity.class);
-                    iniciaFormularioNovoConsumo.putExtra(CHAVE_REQUISICAO, CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO);
-                    startActivity(iniciaFormularioNovoConsumo);
+                    InserirEntradaOuConsumo(CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO);
                 }
             });
             TextView botaoHistoricoEntradas = findViewById(R.id.informacao_insumo_historico_entradas);
 
             TextView botaoHistoricoConsumo = findViewById(R.id.informacao_insumo_historico_consumo);
         }
+    }
+
+    private void InserirEntradaOuConsumo(String chaveRequisicaoSolicitada) {
+        Intent iniciaFormulario = new Intent(InformacaoInsumoActivity.this, FormularioNovaEntradaConsumoActivity.class);
+        iniciaFormulario.putExtra(CHAVE_REQUISICAO, chaveRequisicaoSolicitada);
+        startActivity(iniciaFormulario);
     }
 
     @NonNull
