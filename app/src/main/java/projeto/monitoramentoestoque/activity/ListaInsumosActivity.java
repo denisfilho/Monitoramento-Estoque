@@ -39,6 +39,36 @@ public class ListaInsumosActivity extends AppCompatActivity {
         configuraBotaoInsereInsumo();
     }
 
+    private List<Insumo> pegaTodosInsumos() {
+        InsumoDAO dao = new InsumoDAO();
+        List<Insumo> todosInsumos = dao.todos();
+        return todosInsumos;
+    }
+
+    private void configuraRecyclerView(List<Insumo> todosInsumos) {
+        RecyclerView listaInsumos = findViewById(R.id.lista_insumos_recyclerview);
+        configuraAdapter(todosInsumos, listaInsumos);
+        configuraLayoutManager(listaInsumos);
+    }
+
+    private void configuraAdapter(List<Insumo> todosInsumos, RecyclerView listaInsumos) {
+        adapter = new ListaInsumosAdapter(this, todosInsumos);
+        listaInsumos.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(Insumo insumo) {
+                Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
+                abreActivityInformacaoInsumo.putExtra(CHAVE_INSUMO, insumo);
+                startActivityForResult(abreActivityInformacaoInsumo,CODIGO_REQUISICAO_EXIBE_INSUMO);
+            }
+        });
+    }
+
+    private void configuraLayoutManager(RecyclerView listaInsumos) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        listaInsumos.setLayoutManager(layoutManager);
+    }
+
     private void configuraBotaoInsereInsumo() {
         Button botaoInsereInsumo = findViewById(R.id.lista_insumos_bota_insere_insumo);
         botaoInsereInsumo.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +82,6 @@ public class ListaInsumosActivity extends AppCompatActivity {
     private void vaiParaFormularioInsumoActivity() {
         Intent iniciaFormularioInsumo = new Intent(ListaInsumosActivity.this, FormularioInsumoActivity.class);
         startActivityForResult(iniciaFormularioInsumo, CODIGO_REQUISICAO_INSERE_INSUMO);
-    }
-
-    private List<Insumo> pegaTodosInsumos() {
-        InsumoDAO dao = new InsumoDAO();
-        List<Insumo> todosInsumos = dao.todos();
-        return todosInsumos;
     }
 
     @Override
@@ -94,29 +118,5 @@ public class ListaInsumosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    private void configuraRecyclerView(List<Insumo> todosInsumos) {
-        RecyclerView listaInsumos = findViewById(R.id.lista_insumos_recyclerview);
-        configuraAdapter(todosInsumos, listaInsumos);
-        configuraLayoutManager(listaInsumos);
-    }
-
-    private void configuraLayoutManager(RecyclerView listaInsumos) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        listaInsumos.setLayoutManager(layoutManager);
-    }
-
-    private void configuraAdapter(List<Insumo> todosInsumos, RecyclerView listaInsumos) {
-        adapter = new ListaInsumosAdapter(this, todosInsumos);
-        listaInsumos.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void OnItemClick(Insumo insumo) {
-                Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
-                abreActivityInformacaoInsumo.putExtra(CHAVE_INSUMO, insumo);
-                startActivityForResult(abreActivityInformacaoInsumo,CODIGO_REQUISICAO_EXIBE_INSUMO);
-            }
-        });
     }
 }

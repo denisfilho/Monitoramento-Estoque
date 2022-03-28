@@ -1,20 +1,19 @@
 package projeto.monitoramentoestoque.activity;
 
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_INSUMO;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_REQUISICAO;
+import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA;
+import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
@@ -43,9 +42,24 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             ultimaAtualizacaoInsumoRecebido.setText("Última Atualização: " + converterCalendarParaString(insumoRecebido));
 
             TextView botaoInserirNovaEntrada = findViewById(R.id.informacao_insumo_inserir_nova_entrada);
+            botaoInserirNovaEntrada.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iniciaFormularioNovaEntrada = new Intent(InformacaoInsumoActivity.this, FormularioNovaEntradaConsumoActivity.class);
+                    iniciaFormularioNovaEntrada.putExtra(CHAVE_REQUISICAO,CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA);
+                    startActivity(iniciaFormularioNovaEntrada);
+                }
+            });
 
-            TextView botaoInserirNovoInsumo = findViewById(R.id.informacao_insumo_inserir_novo_consumo);
-
+            TextView botaoInserirNovoConsumo = findViewById(R.id.informacao_insumo_inserir_novo_consumo);
+            botaoInserirNovoConsumo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iniciaFormularioNovoConsumo = new Intent(InformacaoInsumoActivity.this, FormularioNovaEntradaConsumoActivity.class);
+                    iniciaFormularioNovoConsumo.putExtra(CHAVE_REQUISICAO, CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO);
+                    startActivity(iniciaFormularioNovoConsumo);
+                }
+            });
             TextView botaoHistoricoEntradas = findViewById(R.id.informacao_insumo_historico_entradas);
 
             TextView botaoHistoricoConsumo = findViewById(R.id.informacao_insumo_historico_consumo);
