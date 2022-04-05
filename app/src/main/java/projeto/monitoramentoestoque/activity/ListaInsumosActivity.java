@@ -5,22 +5,22 @@ import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.COD
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_REQUISICAO_INSERE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_RESULTADO_INSUMO_CRIADO;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.Serializable;
 import java.util.List;
 
 import projeto.monitoramentoestoque.R;
-import projeto.monitoramentoestoque.dao.InsumoDAO;
+import projeto.monitoramentoestoque.dao.DAOInsumo;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickListener;
@@ -28,6 +28,9 @@ import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickLis
 public class ListaInsumosActivity extends AppCompatActivity {
 
     private ListaInsumosAdapter adapter;
+
+    @Autowired
+    private DAOInsumo insumoDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +43,12 @@ public class ListaInsumosActivity extends AppCompatActivity {
     }
 
     private List<Insumo> pegaTodosInsumos() {
+        /*
         InsumoDAO dao = new InsumoDAO();
         List<Insumo> todosInsumos = dao.todos();
+*/
+
+        List<Insumo> todosInsumos = insumoDAO.findAll();
         return todosInsumos;
     }
 
@@ -95,7 +102,8 @@ public class ListaInsumosActivity extends AppCompatActivity {
     }
 
     private void adiciona(Insumo insumo) {
-        new InsumoDAO().insere(insumo);
+        //new InsumoDAO().insere(insumo);
+        insumoDAO.save(insumo);
         adapter.adiciona(insumo);
     }
 
