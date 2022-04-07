@@ -3,20 +3,18 @@ package projeto.monitoramentoestoque.activity;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_RESULTADO_INSUMO_CRIADO;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
 import projeto.monitoramentoestoque.R;
-import projeto.monitoramentoestoque.dao.InsumoDAO;
 import projeto.monitoramentoestoque.model.Insumo;
 
 public class FormularioInsumoActivity extends AppCompatActivity {
@@ -41,6 +39,7 @@ public class FormularioInsumoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(ehMenuSalvaInsumo(item)){
             Insumo insumoCriado = criaInsumo();
+            insumoCriado.setDataUltimaAtualizacao(Calendar.getInstance());
             retornaInsumo(insumoCriado);
             finish();
         }
@@ -58,7 +57,7 @@ public class FormularioInsumoActivity extends AppCompatActivity {
         EditText nome = findViewById(R.id.formulario_insumo_nome);
         EditText unidade = findViewById(R.id.formulario_insumo_unidade);
         EditText estoque = findViewById(R.id.formulario_insumo_estoque);
-        return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), Calendar.getInstance());
+        return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()));
     }
 
     private boolean ehMenuSalvaInsumo(@NonNull MenuItem item) {

@@ -1,17 +1,10 @@
 package projeto.monitoramentoestoque.model;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
-import java.io.Serializable;
-import java.util.Calendar;
-
+/*
 @Entity
-public class Insumo implements Serializable {
+public class InsumoTest implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private Long id;
 
     @ColumnInfo(name = "UNIDADE")
@@ -23,14 +16,15 @@ public class Insumo implements Serializable {
     @ColumnInfo(name = "ESOTQUE_ATUAL")
     private double estoqueAtual;
 
-    @Ignore
+    @ColumnInfo(name = "ULTIMA_ATT")
     private Calendar dataUltimaAtualizacao;
 
-    public Insumo(String nome, String unidade, double estoqueAtual /*Calendar data*/) {
+    public Insumo(String nome, String unidade, double estoqueAtual, Calendar data) {
         this.nome = nome;
         this.unidade = unidade;
         this.estoqueAtual = estoqueAtual;
-        //this.dataUltimaAtualizacao = data;
+        this.dataUltimaAtualizacao = data;
+
     }
 
     public String getNome() {
@@ -56,12 +50,6 @@ public class Insumo implements Serializable {
     public void setDataUltimaAtualizacao(Calendar data) {
         this.dataUltimaAtualizacao = data;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
+
+ */

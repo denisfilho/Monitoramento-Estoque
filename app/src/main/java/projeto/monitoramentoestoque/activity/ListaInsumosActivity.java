@@ -14,13 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import androidx.room.Room;
 
 import java.util.List;
 
 import projeto.monitoramentoestoque.R;
-import projeto.monitoramentoestoque.dao.DAOInsumo;
+import projeto.monitoramentoestoque.dao.RoomInsumoDAO;
+import projeto.monitoramentoestoque.database.InsumoDatabase;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickListener;
@@ -29,13 +29,20 @@ public class ListaInsumosActivity extends AppCompatActivity {
 
     private ListaInsumosAdapter adapter;
 
-    @Autowired
-    private DAOInsumo insumoDAO;
+//    @Autowired
+   // private DAOInsumo insumoDAO;
+
+    //private InsumoDatabase db;
+    private RoomInsumoDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_insumos);
+
+        dao = Room.databaseBuilder(getApplicationContext(),
+                InsumoDatabase.class, "insumo.br").allowMainThreadQueries().fallbackToDestructiveMigration().build().getRoomInsumoDAO();
+
         List<Insumo> todosInsumos = pegaTodosInsumos();
         configuraRecyclerView(todosInsumos);
 
@@ -48,7 +55,9 @@ public class ListaInsumosActivity extends AppCompatActivity {
         List<Insumo> todosInsumos = dao.todos();
 */
 
-        List<Insumo> todosInsumos = insumoDAO.findAll();
+        //List<Insumo> todosInsumos = insumoDAO.findAll();
+
+        List<Insumo> todosInsumos = dao.todos();
         return todosInsumos;
     }
 
@@ -103,7 +112,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
 
     private void adiciona(Insumo insumo) {
         //new InsumoDAO().insere(insumo);
-        insumoDAO.save(insumo);
+        dao.salva(insumo);
         adapter.adiciona(insumo);
     }
 
