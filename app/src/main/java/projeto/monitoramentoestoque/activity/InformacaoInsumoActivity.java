@@ -10,10 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.SimpleDateFormat;
 
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
@@ -39,7 +36,7 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             estoqueAtualInsumoRecebido.setText("Estoque Atual: " + Double.toString(insumoRecebido.getEstoqueAtual()));
 
             TextView ultimaAtualizacaoInsumoRecebido = findViewById(R.id.informacao_insumo_data_ultima_atualizacao);
-            ultimaAtualizacaoInsumoRecebido.setText("Última Atualização: " + converterCalendarParaString(insumoRecebido));
+            ultimaAtualizacaoInsumoRecebido.setText("Última Atualização: " + insumoRecebido.getDataUltimaAtualizacao());
 
             TextView botaoInserirNovaEntrada = findViewById(R.id.informacao_insumo_inserir_nova_entrada);
             botaoInserirNovaEntrada.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +65,4 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
         startActivity(iniciaFormulario);
     }
 
-    @NonNull
-    private String converterCalendarParaString(Insumo insumoRecebido) {
-        return new SimpleDateFormat("dd/MM/yyyy").format(insumoRecebido.getDataUltimaAtualizacao().getTime());
-    }
 }

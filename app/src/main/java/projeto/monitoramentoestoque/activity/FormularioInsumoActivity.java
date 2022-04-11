@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import projeto.monitoramentoestoque.R;
@@ -39,7 +40,6 @@ public class FormularioInsumoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(ehMenuSalvaInsumo(item)){
             Insumo insumoCriado = criaInsumo();
-            insumoCriado.setDataUltimaAtualizacao(Calendar.getInstance());
             retornaInsumo(insumoCriado);
             finish();
         }
@@ -57,7 +57,18 @@ public class FormularioInsumoActivity extends AppCompatActivity {
         EditText nome = findViewById(R.id.formulario_insumo_nome);
         EditText unidade = findViewById(R.id.formulario_insumo_unidade);
         EditText estoque = findViewById(R.id.formulario_insumo_estoque);
-        return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()));
+
+        String dataString = converterCalendarParaString();
+
+        return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), dataString);
+    }
+
+    @NonNull
+    private String converterCalendarParaString() {
+        Calendar dataCalendar = Calendar.getInstance();
+        SimpleDateFormat formatoData = new SimpleDateFormat( "dd/MM/yyyy" );
+        String dataString = formatoData.format(dataCalendar.getTime());
+        return dataString;
     }
 
     private boolean ehMenuSalvaInsumo(@NonNull MenuItem item) {

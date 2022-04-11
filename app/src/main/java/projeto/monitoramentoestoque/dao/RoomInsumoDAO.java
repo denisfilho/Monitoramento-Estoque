@@ -18,6 +18,12 @@ public interface RoomInsumoDAO {
     @Query("SELECT * FROM insumo WHERE id IN (:insumoIds)")
     List<Insumo> loadAllByIds(Long insumoIds);
 
+    @Query("SELECT id FROM insumo WHERE NOME is (:nomeInsumo) ")
+    Long encontraId(String nomeInsumo);
+
+    @Query("SELECT * FROM insumo WHERE id is (:idInsumo)")
+    Insumo encontraInsumo(Long idInsumo);
+
     @Insert
     void salva(Insumo insumo);
 

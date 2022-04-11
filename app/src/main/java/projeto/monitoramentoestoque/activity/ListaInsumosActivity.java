@@ -1,7 +1,6 @@
 package projeto.monitoramentoestoque.activity;
 
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_INSUMO;
-import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_REQUISICAO_EXIBE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_REQUISICAO_INSERE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CODIGO_RESULTADO_INSUMO_CRIADO;
 
@@ -41,7 +40,8 @@ public class ListaInsumosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_insumos);
 
         dao = Room.databaseBuilder(getApplicationContext(),
-                InsumoDatabase.class, "insumo.br").allowMainThreadQueries().fallbackToDestructiveMigration().build().getRoomInsumoDAO();
+                InsumoDatabase.class, "insumo.br").allowMainThreadQueries().build().getRoomInsumoDAO();
+        // dao = InsumoDatabase.getInstance(this).getInsumoDAO();
 
         List<Insumo> todosInsumos = pegaTodosInsumos();
         configuraRecyclerView(todosInsumos);
@@ -73,9 +73,11 @@ public class ListaInsumosActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(Insumo insumo) {
+                //Toast.makeText(getApplicationContext(), insumo.getId() + " " + insumo.getNome(),Toast.LENGTH_LONG).show();
                 Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
                 abreActivityInformacaoInsumo.putExtra(CHAVE_INSUMO, insumo);
-                startActivityForResult(abreActivityInformacaoInsumo,CODIGO_REQUISICAO_EXIBE_INSUMO);
+                startActivity(abreActivityInformacaoInsumo);
+//                startActivityForResult(abreActivityInformacaoInsumo,CODIGO_REQUISICAO_EXIBE_INSUMO);
             }
         });
     }
@@ -114,6 +116,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
         //new InsumoDAO().insere(insumo);
         dao.salva(insumo);
         adapter.adiciona(insumo);
+
     }
 
     private boolean ehResultadoComInsumo(int requestCode, int resultCode, @Nullable Intent data) {
@@ -132,8 +135,6 @@ public class ListaInsumosActivity extends AppCompatActivity {
         return requestCode == CODIGO_REQUISICAO_INSERE_INSUMO;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+
+
 }
