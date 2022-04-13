@@ -3,12 +3,15 @@ package projeto.monitoramentoestoque.database;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
+import projeto.monitoramentoestoque.dao.RoomEntradaDAO;
 import projeto.monitoramentoestoque.dao.RoomInsumoDAO;
+import projeto.monitoramentoestoque.model.Entrada;
 import projeto.monitoramentoestoque.model.Insumo;
 
-@Database(entities = {Insumo.class}, version = 1, exportSchema = false)
+@Database(entities = {Insumo.class, Entrada.class}, version = 1, exportSchema = false)
 public abstract class InsumoDatabase extends RoomDatabase {
-    public abstract RoomInsumoDAO getRoomInsumoDAO();
+    public abstract RoomInsumoDAO getRoomInsumoGeralDAO();
+    public abstract RoomEntradaDAO getRoomHistoricoEntradaDAO();
 
 //    public abstract RoomInsumoDAO getInsumoDAO();
 //    private static  InsumoDatabase insumoDB;

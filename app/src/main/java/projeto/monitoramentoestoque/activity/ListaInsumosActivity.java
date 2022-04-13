@@ -40,7 +40,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_insumos);
 
         dao = Room.databaseBuilder(getApplicationContext(),
-                InsumoDatabase.class, "insumo.br").allowMainThreadQueries().build().getRoomInsumoDAO();
+                InsumoDatabase.class, "insumo.bd").allowMainThreadQueries().build().getRoomInsumoGeralDAO();
         // dao = InsumoDatabase.getInstance(this).getInsumoDAO();
 
         List<Insumo> todosInsumos = pegaTodosInsumos();
@@ -113,8 +113,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
     }
 
     private void adiciona(Insumo insumo) {
-        //new InsumoDAO().insere(insumo);
-        dao.salva(insumo);
+        dao.salvaInsumo(insumo);
         adapter.adiciona(insumo);
 
     }

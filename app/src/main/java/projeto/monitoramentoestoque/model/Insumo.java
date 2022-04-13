@@ -12,16 +12,16 @@ public class Insumo implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    @ColumnInfo(name = "UNIDADE")
+    @ColumnInfo(name = "INSUMO_UNIDADE")
     private String unidade;
 
-    @ColumnInfo(name = "NOME")
+    @ColumnInfo(name = "INSUMO_NOME")
     private String nome;
 
-    @ColumnInfo(name = "ESOTQUE_ATUAL")
+    @ColumnInfo(name = "INSUMO_ESOTQUE_ATUAL")
     private double estoqueAtual;
 
-    @ColumnInfo(name = "ULTIMA_ATT")
+    @ColumnInfo(name = "INSUMO_ULTIMA_ATT")
     private String dataUltimaAtualizacao;
 
     public Insumo(String nome, String unidade, double estoqueAtual, String dataUltimaAtualizacao) {

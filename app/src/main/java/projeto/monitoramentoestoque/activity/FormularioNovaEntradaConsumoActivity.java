@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +21,11 @@ import java.util.Calendar;
 
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.dao.ConsumoDAO;
-import projeto.monitoramentoestoque.dao.EntradaDAO;
+import projeto.monitoramentoestoque.dao.RoomEntradaDAO;
+import projeto.monitoramentoestoque.database.InsumoDatabase;
 import projeto.monitoramentoestoque.model.Consumo;
 import projeto.monitoramentoestoque.model.Entrada;
+import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
 
 public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
 
@@ -31,6 +34,8 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
     private EditText quantidade;
     private Context context;
 
+    private RoomEntradaDAO dao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +43,9 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
         context = getApplicationContext();
         Intent insercaoSelecionada = getIntent();
         if (insercaoSelecionada.hasExtra(CHAVE_REQUISICAO)){
-            tituloAppBar = insercaoSelecionada.getStringExtra(CHAVE_REQUISICAO);
+            SolicitacaoNovoConsumoEntrada solicitacao = (SolicitacaoNovoConsumoEntrada) insercaoSelecionada.getSerializableExtra(CHAVE_REQUISICAO);
+            //tituloAppBar = insercaoSelecionada.getStringExtra(CHAVE_REQUISICAO);
+            tituloAppBar = solicitacao.getTipoDeSolicitacao();
             setTitle(tituloAppBar);
 
             data = findViewById(R.id.formulario_nova_entrada_consumo_data);
@@ -49,13 +56,8 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if(tituloAppBar.equals(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA)) {
-                        EntradaDAO dao = new EntradaDAO();
-                        try {
-                            Calendar dataConvertida = ConverterStringParaCalendar();
-                            dao.insere(new Entrada(dataConvertida, Double.parseDouble(quantidade.getText().toString())));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        dao = Room.databaseBuilder(getApplicationContext(), InsumoDatabase.class, "insumo.bd").allowMainThreadQueries().build().getRoomHistoricoEntradaDAO();
+                        dao.salvaEntrada(new Entrada((data.getText().toString()), Double.parseDouble(quantidade.getText().toString()), solicitacao.getInsumo().getId()));
                         Toast.makeText(context,"Entrada adicionada!", Toast.LENGTH_LONG).show();
                     }
                     else{

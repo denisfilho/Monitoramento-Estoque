@@ -54,8 +54,8 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
 
         public InsumoViewHolder(View itemView) {
             super(itemView);
-            nomeInsumo = itemView.findViewById(R.id.item_insumo_nome);
-            estoqueAtualInsumo = itemView.findViewById(R.id.item_estoque_atual);
+            nomeInsumo = itemView.findViewById(R.id.cardview_item_insumo_nome);
+            estoqueAtualInsumo = itemView.findViewById(R.id.cardview_item_insumo_quantidade);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

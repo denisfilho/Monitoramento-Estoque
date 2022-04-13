@@ -3,7 +3,6 @@ package projeto.monitoramentoestoque.activity;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_INSUMO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_REQUISICAO;
 import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA;
-import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
 
 public class InformacaoInsumoActivity extends AppCompatActivity {
+
+    private SolicitacaoNovoConsumoEntrada solicitacaoNovoConsumoEntrada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,9 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             botaoInserirNovaEntrada.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    InserirEntradaOuConsumo(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA);
+                    //InserirEntradaOuConsumo(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA);
+                    solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA,insumoRecebido);
+                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada);
                 }
             });
 
@@ -50,18 +54,26 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
             botaoInserirNovoConsumo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    InserirEntradaOuConsumo(CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO);
+                    //InserirEntradaOuConsumo(CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO);
                 }
             });
             TextView botaoHistoricoEntradas = findViewById(R.id.informacao_insumo_historico_entradas);
+            botaoHistoricoEntradas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent abreHistoricoDeEntrada = new Intent(InformacaoInsumoActivity.this, HistoricoEntradaActivity.class);
+                    abreHistoricoDeEntrada.putExtra(CHAVE_INSUMO, insumoRecebido);
+                    startActivity(abreHistoricoDeEntrada);
+                }
+            });
 
             TextView botaoHistoricoConsumo = findViewById(R.id.informacao_insumo_historico_consumo);
         }
     }
 
-    private void InserirEntradaOuConsumo(String chaveRequisicaoSolicitada) {
+    private void InserirEntradaOuConsumo(/*String chaveRequisicaoSolicitada*/ SolicitacaoNovoConsumoEntrada solicitacaoNovoConsumoEntrada) {
         Intent iniciaFormulario = new Intent(InformacaoInsumoActivity.this, FormularioNovaEntradaConsumoActivity.class);
-        iniciaFormulario.putExtra(CHAVE_REQUISICAO, chaveRequisicaoSolicitada);
+        iniciaFormulario.putExtra(CHAVE_REQUISICAO, /*chaveRequisicaoSolicitada*/ solicitacaoNovoConsumoEntrada);
         startActivity(iniciaFormulario);
     }
 
