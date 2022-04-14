@@ -10,13 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoramentoEstoque">
         <activity
+            android:name=".activity.HistoricoConsumoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FormularioNovoConsumoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.FormularioInsumoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.FormularioNovaEntradaConsumoActivity"
+            android:name=".activity.FormularioNovaEntradaActivity"
             android:exported="false" />
-        <activity android:name=".activity.HistoricoEntradaActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".activity.HistoricoEntradaActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.InformacaoInsumoActivity"
             android:exported="false" />

@@ -20,6 +20,7 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
     private final Context context;
     private final Insumo insumo;
 
+
     public HistoricoEntradaAdapter(Context context, List<Entrada> historicoEntrada, Insumo insumo) {
         this.historicoEntrada = historicoEntrada;
         this.context = context;
@@ -74,6 +75,8 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
     public void atualiza(List<Entrada> entradas){
         this.historicoEntrada.clear();
         this.historicoEntrada.addAll(entradas);
+
+
         notifyDataSetChanged();
     }
 }
