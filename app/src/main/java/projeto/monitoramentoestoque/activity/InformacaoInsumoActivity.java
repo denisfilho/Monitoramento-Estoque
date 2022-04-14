@@ -46,7 +46,7 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA,insumoRecebido);
-                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioNovaEntradaActivity.class);
+                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioInserirEntradaConsumoActivity.class);
                 }
             });
 
@@ -55,7 +55,7 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO,insumoRecebido);
-                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioNovoConsumoActivity.class);
+                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioInserirEntradaConsumoActivity.class);
                 }
             });
             TextView botaoHistoricoEntradas = findViewById(R.id.informacao_insumo_historico_entradas);
