@@ -66,8 +66,14 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
         }
     }
 
-    public void adiciona (Entrada entrada){
+    public void adiciona(Entrada entrada){
         historicoEntrada.add(entrada);
+        notifyDataSetChanged();
+    }
+
+    public void atualiza(List<Entrada> entradas){
+        this.historicoEntrada.clear();
+        this.historicoEntrada.addAll(entradas);
         notifyDataSetChanged();
     }
 }

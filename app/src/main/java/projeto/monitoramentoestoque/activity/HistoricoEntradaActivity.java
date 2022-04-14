@@ -42,11 +42,20 @@ public class HistoricoEntradaActivity extends AppCompatActivity {
 
     }
 
-    private List<Entrada> pegaHistoricoEntrada() {;
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+    }
+
+    private List<Entrada> pegaHistoricoEntrada() {;
 
         List<Entrada> historicoEntrada = dao.buscaHistoricoDeEntrada(insumo.getId());
         return historicoEntrada;
+    }
+
+    public void atualizaEntradas(){
+        adapter.atualiza(dao.todasEntradas());
     }
 
     private void configuraRecyclerView(List<Entrada> historicoEntrada) {

@@ -44,7 +44,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        atualizaInsumos();
     }
 
     private List<Insumo> pegaTodosInsumos() {

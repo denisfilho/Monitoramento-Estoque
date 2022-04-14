@@ -25,6 +25,7 @@ import projeto.monitoramentoestoque.database.InsumoDatabase;
 import projeto.monitoramentoestoque.model.Consumo;
 import projeto.monitoramentoestoque.model.Entrada;
 import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
+import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 
 public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
 
@@ -34,6 +35,8 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
     private Context context;
 
     private RoomEntradaDAO dao;
+
+    private ListaInsumosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
