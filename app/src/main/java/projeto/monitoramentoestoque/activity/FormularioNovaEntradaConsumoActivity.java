@@ -41,7 +41,7 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario_nova_entrada_consumo);
+        setContentView(R.layout.activity_formulario_nova_entrada);
         context = getApplicationContext();
         Intent insercaoSelecionada = getIntent();
         if (insercaoSelecionada.hasExtra(CHAVE_REQUISICAO)){
@@ -49,9 +49,9 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
             tituloAppBar = solicitacao.getTipoDeSolicitacao();
             setTitle(tituloAppBar);
 
-            data = findViewById(R.id.formulario_nova_entrada_consumo_data);
-            quantidade = findViewById(R.id.formulario_nova_entrada_consumo_quantidade);
-            Button botaoInserirNovaEntradaConsumo = findViewById(R.id.formulario_nova_entrada_consumo_botao_inserir);
+            data = findViewById(R.id.formulario_nova_entrada_data);
+            quantidade = findViewById(R.id.formulario_nova_entrada_quantidade);
+            Button botaoInserirNovaEntradaConsumo = findViewById(R.id.formulario_nova_entrada_botao_inserir);
             Toast.makeText(getApplicationContext(), "ID: " + solicitacao.getInsumo().getId(), Toast.LENGTH_LONG).show();
 
             botaoInserirNovaEntradaConsumo.setOnClickListener(new View.OnClickListener() {

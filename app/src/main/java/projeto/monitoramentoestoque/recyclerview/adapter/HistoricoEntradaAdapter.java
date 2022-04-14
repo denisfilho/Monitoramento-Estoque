@@ -29,7 +29,7 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
     @NonNull
     @Override
     public HistoricoEntradaAdapter.EntradaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewCriada = LayoutInflater.from(context). inflate(R.layout.item_entrada_consumo, parent, false);
+        View viewCriada = LayoutInflater.from(context). inflate(R.layout.item_entrada, parent, false);
         return new HistoricoEntradaAdapter.EntradaViewHolder(viewCriada);
     }
 

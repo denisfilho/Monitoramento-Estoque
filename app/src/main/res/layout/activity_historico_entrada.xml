@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/historico_entrada_fixo_data"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_entrada_consumo"/>
+        tools:listitem="@layout/item_entrada"/>
 
 
 
