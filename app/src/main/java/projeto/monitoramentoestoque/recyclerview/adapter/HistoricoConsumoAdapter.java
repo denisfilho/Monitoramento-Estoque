@@ -62,7 +62,7 @@ public class HistoricoConsumoAdapter extends RecyclerView.Adapter<HistoricoConsu
 
         private void preencheCampos(Consumo consumo) {
             data.setText(consumo.getData());
-            quantidade.setText(consumo.getQuantidade() + " " );
+            quantidade.setText(consumo.getQuantidade() + insumo.getUnidade() );
         }
 
     }

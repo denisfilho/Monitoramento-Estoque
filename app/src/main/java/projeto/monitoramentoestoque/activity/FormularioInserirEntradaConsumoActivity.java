@@ -26,6 +26,8 @@ import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 
 public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
+    public static final String MENSAGEM_ENTRADA_ADICIONADA = "Entrada adicionada!";
+    public static final String MENSAGEM_CONSUMO_ADICIONADO = "Consumo adicionado!";
     private String tituloAppBar;
     private EditText data;
     private EditText quantidade;
@@ -39,6 +41,8 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
     private double valor;
 
     private ListaInsumosAdapter adapter;
+    private Button botaoInserirNovaEntradaConsumo;
+    private String dataInformada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,59 +50,89 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_inserir_entrada_consumo);
 
         context = getApplicationContext();
+
         Intent insercaoSelecionada = getIntent();
 
         if (insercaoSelecionada.hasExtra(CHAVE_REQUISICAO)){
             SolicitacaoNovoConsumoEntrada solicitacao = (SolicitacaoNovoConsumoEntrada) insercaoSelecionada.getSerializableExtra(CHAVE_REQUISICAO);
-            tituloAppBar = solicitacao.getTipoDeSolicitacao();
-            setTitle(tituloAppBar);
+
+            nomeAppBar(solicitacao);
 
             insumo = solicitacao.getInsumo();
-            data = findViewById(R.id.formulario_inserir_entrada_consumo_data);
-            quantidade = findViewById(R.id.formulario_inserir_entrada_consumo_quantidade);
-            Button botaoInserirNovaEntradaConsumo = findViewById(R.id.formulario_inserir_entrada_consumo_botao);
 
+            vinculaCamposDoFormulario();
 
-            botaoInserirNovaEntradaConsumo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(tituloAppBar.equals(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA)) {
-
-                        daoInsumo = InsumoDatabase.getInstance(context).getRoomInsumoGeralDAO();
-                        adapter = new ListaInsumosAdapter(context, daoInsumo.todos());
-
-                        valor = Double.parseDouble(quantidade.getText().toString());
-                        solicitacao.getInsumo().setEstoqueAtual(insumo.getEstoqueAtual() + valor);
-
-                        daoInsumo.altera(insumo);
-
-
-                        daoEntrada = InsumoDatabase.getInstance(context).getRoomHistoricoEntradaDAO();
-                        daoEntrada.salvaEntrada(new Entrada((data.getText().toString()), valor, insumo.getId()));
-                        Toast.makeText(context,"Entrada adicionada!", Toast.LENGTH_LONG).show();
-
-                        adapter.atualiza(daoInsumo.todos());
-
-                    }
-                    else{
-                        daoInsumo = InsumoDatabase.getInstance(context).getRoomInsumoGeralDAO();
-                        adapter = new ListaInsumosAdapter(context, daoInsumo.todos());
-
-                        valor = Double.parseDouble(quantidade.getText().toString());
-                        solicitacao.getInsumo().setEstoqueAtual(insumo.getEstoqueAtual() - valor);
-
-                        daoInsumo.altera(insumo);
-
-                        daoConsumo = InsumoDatabase.getInstance(context).getRoomHistoricoConsumoDAO();
-                        Consumo consumo = new Consumo(data.getText().toString(), Double.parseDouble(quantidade.getText().toString()), solicitacao.getInsumo().getId());
-                        daoConsumo.salvaConsumo(consumo);
-                        Toast.makeText(context,"Consumo adicionado!", Toast.LENGTH_LONG).show();
-
-                        adapter.atualiza(daoInsumo.todos());
-                    }
-                    finish();
-                }
-            });
+            configuraBotaoInserirEntradaConsumo(solicitacao);
         }
+    }
+
+    private void configuraBotaoInserirEntradaConsumo(SolicitacaoNovoConsumoEntrada solicitacao) {
+        botaoInserirNovaEntradaConsumo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                configuraDAOInsumo();
+                configuraAdapterListaInsumos();
+                salvaValoresEnviadosPeloFormulario();
+
+                if(tituloAppBar.equals(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA)) {
+
+                    salvaHistoricoEntrada();
+                    Toast.makeText(context, MENSAGEM_ENTRADA_ADICIONADA, Toast.LENGTH_LONG).show();
+
+                }
+                else{
+
+                    valor = -valor;
+                    salvaHistoricoConsumo();
+                    Toast.makeText(context, MENSAGEM_CONSUMO_ADICIONADO, Toast.LENGTH_LONG).show();
+
+                }
+                alterarValorEstoqueAtual();
+                finish();
+            }
+        });
+    }
+
+    private void alterarValorEstoqueAtual() {
+        insumo.setEstoqueAtual(insumo.getEstoqueAtual() + valor);
+        daoInsumo.altera(insumo);
+        adapter.atualiza(daoInsumo.todos());
+    }
+
+    private void salvaHistoricoConsumo() {
+        daoConsumo = InsumoDatabase.getInstance(context).getRoomHistoricoConsumoDAO();
+        Consumo consumo = new Consumo(data.getText().toString(), Double.parseDouble(quantidade.getText().toString()), insumo.getId());
+        daoConsumo.salvaConsumo(consumo);
+    }
+
+    private void salvaHistoricoEntrada() {
+        daoEntrada = InsumoDatabase.getInstance(context).getRoomHistoricoEntradaDAO();
+        Entrada entrada = new Entrada(dataInformada, valor, insumo.getId());
+        daoEntrada.salvaEntrada(entrada);
+    }
+
+    private void salvaValoresEnviadosPeloFormulario() {
+        valor = Double.parseDouble(quantidade.getText().toString());
+        dataInformada = data.getText().toString();
+    }
+
+    private void configuraAdapterListaInsumos() {
+        adapter = new ListaInsumosAdapter(context, daoInsumo.todos());
+    }
+
+    private void configuraDAOInsumo() {
+        daoInsumo = InsumoDatabase.getInstance(context).getRoomInsumoGeralDAO();
+    }
+
+    private void vinculaCamposDoFormulario() {
+        data = findViewById(R.id.formulario_inserir_entrada_consumo_data);
+        quantidade = findViewById(R.id.formulario_inserir_entrada_consumo_quantidade);
+        botaoInserirNovaEntradaConsumo = findViewById(R.id.formulario_inserir_entrada_consumo_botao);
+    }
+
+    private void nomeAppBar(SolicitacaoNovoConsumoEntrada solicitacao) {
+        tituloAppBar = solicitacao.getTipoDeSolicitacao();
+        setTitle(tituloAppBar);
     }
 }
