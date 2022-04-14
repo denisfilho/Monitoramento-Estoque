@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class HistoricoEntradaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra(CHAVE_INSUMO)){
             insumo = (Insumo) intent.getSerializableExtra(CHAVE_INSUMO);
-            dao = Room.databaseBuilder(getApplicationContext(), InsumoDatabase.class, "insumo.bd").allowMainThreadQueries().build().getRoomHistoricoEntradaDAO();
+            dao = InsumoDatabase.getInstance(getApplicationContext()).getRoomHistoricoEntradaDAO();
 
             List<Entrada> historicoEntrada = pegaHistoricoEntrada();
 
@@ -45,7 +44,7 @@ public class HistoricoEntradaActivity extends AppCompatActivity {
 
     private List<Entrada> pegaHistoricoEntrada() {;
 
-        //List<Entrada> historicoEntrada = dao.todasEntradas() /*dao.buscaHistoricoDeEntrada(insumo.getId())*/;
+
         List<Entrada> historicoEntrada = dao.buscaHistoricoDeEntrada(insumo.getId());
         return historicoEntrada;
     }

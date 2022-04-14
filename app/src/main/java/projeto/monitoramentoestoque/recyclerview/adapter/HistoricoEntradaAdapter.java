@@ -62,8 +62,6 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
 
         private void preencheCampos(Entrada entrada) {
             data.setText(entrada.getData());
-            //data.setText(entrada.getIdEntrada().toString());
-            //data.setText(entrada.getInsumoId().toString());
             quantidade.setText(entrada.getQuantidade() + insumo.getUnidade());
         }
     }

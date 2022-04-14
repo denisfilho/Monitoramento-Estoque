@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,19 +43,19 @@ public class FormularioNovaEntradaConsumoActivity extends AppCompatActivity {
         Intent insercaoSelecionada = getIntent();
         if (insercaoSelecionada.hasExtra(CHAVE_REQUISICAO)){
             SolicitacaoNovoConsumoEntrada solicitacao = (SolicitacaoNovoConsumoEntrada) insercaoSelecionada.getSerializableExtra(CHAVE_REQUISICAO);
-            //tituloAppBar = insercaoSelecionada.getStringExtra(CHAVE_REQUISICAO);
             tituloAppBar = solicitacao.getTipoDeSolicitacao();
             setTitle(tituloAppBar);
 
             data = findViewById(R.id.formulario_nova_entrada_consumo_data);
             quantidade = findViewById(R.id.formulario_nova_entrada_consumo_quantidade);
             Button botaoInserirNovaEntradaConsumo = findViewById(R.id.formulario_nova_entrada_consumo_botao_inserir);
+            Toast.makeText(getApplicationContext(), "ID: " + solicitacao.getInsumo().getId(), Toast.LENGTH_LONG).show();
 
             botaoInserirNovaEntradaConsumo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(tituloAppBar.equals(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA)) {
-                        dao = Room.databaseBuilder(getApplicationContext(), InsumoDatabase.class, "insumo.bd").allowMainThreadQueries().build().getRoomHistoricoEntradaDAO();
+                        dao = InsumoDatabase.getInstance(context).getRoomHistoricoEntradaDAO();
                         dao.salvaEntrada(new Entrada((data.getText().toString()), Double.parseDouble(quantidade.getText().toString()), solicitacao.getInsumo().getId()));
                         Toast.makeText(context,"Entrada adicionada!", Toast.LENGTH_LONG).show();
                     }

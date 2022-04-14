@@ -1,6 +1,9 @@
 package projeto.monitoramentoestoque.database;
 
+import android.content.Context;
+
 import androidx.room.Database;
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import projeto.monitoramentoestoque.dao.RoomEntradaDAO;
@@ -10,27 +13,14 @@ import projeto.monitoramentoestoque.model.Insumo;
 
 @Database(entities = {Insumo.class, Entrada.class}, version = 1, exportSchema = false)
 public abstract class InsumoDatabase extends RoomDatabase {
+
+    public static final String NOME_BANCO_DE_DADOS = "insumo.bd";
+
     public abstract RoomInsumoDAO getRoomInsumoGeralDAO();
     public abstract RoomEntradaDAO getRoomHistoricoEntradaDAO();
 
-//    public abstract RoomInsumoDAO getInsumoDAO();
-//    private static  InsumoDatabase insumoDB;
-//
-//    public static InsumoDatabase getInstance(Context context){
-//        if(insumoDB == null){
-//            insumoDB = buildDatabaseInstance(context);
-//        }
-//        return insumoDB;
-//    }
-//
-//    @NonNull
-//    private static InsumoDatabase buildDatabaseInstance(Context context) {
-//        return Room.databaseBuilder(context,
-//                InsumoDatabase.class, "insumo.bd").allowMainThreadQueries().fallbackToDestructiveMigration().build();
-//    }
-//
-//    public static void cleanUp(){
-//        insumoDB = null;
-//    }
+    public static InsumoDatabase getInstance(Context context){
+        return Room.databaseBuilder(context, InsumoDatabase.class, NOME_BANCO_DE_DADOS).allowMainThreadQueries().build();
+    }
 
 }

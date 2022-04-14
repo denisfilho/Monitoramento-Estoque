@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import java.util.List;
 
@@ -27,11 +26,6 @@ import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickLis
 public class ListaInsumosActivity extends AppCompatActivity {
 
     private ListaInsumosAdapter adapter;
-
-//    @Autowired
-   // private DAOInsumo insumoDAO;
-
-    //private InsumoDatabase db;
     private RoomInsumoDAO dao;
 
     @Override
@@ -39,9 +33,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_insumos);
 
-        dao = Room.databaseBuilder(getApplicationContext(),
-                InsumoDatabase.class, "insumo.bd").allowMainThreadQueries().build().getRoomInsumoGeralDAO();
-        // dao = InsumoDatabase.getInstance(this).getInsumoDAO();
+        dao = InsumoDatabase.getInstance(getApplicationContext()).getRoomInsumoGeralDAO();
 
         List<Insumo> todosInsumos = pegaTodosInsumos();
         configuraRecyclerView(todosInsumos);
@@ -49,13 +41,13 @@ public class ListaInsumosActivity extends AppCompatActivity {
         configuraBotaoInsereInsumo();
     }
 
-    private List<Insumo> pegaTodosInsumos() {
-        /*
-        InsumoDAO dao = new InsumoDAO();
-        List<Insumo> todosInsumos = dao.todos();
-*/
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        //List<Insumo> todosInsumos = insumoDAO.findAll();
+    }
+
+    private List<Insumo> pegaTodosInsumos() {
 
         List<Insumo> todosInsumos = dao.todos();
         return todosInsumos;
@@ -73,11 +65,9 @@ public class ListaInsumosActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(Insumo insumo) {
-                //Toast.makeText(getApplicationContext(), insumo.getId() + " " + insumo.getNome(),Toast.LENGTH_LONG).show();
                 Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
                 abreActivityInformacaoInsumo.putExtra(CHAVE_INSUMO, insumo);
                 startActivity(abreActivityInformacaoInsumo);
-//                startActivityForResult(abreActivityInformacaoInsumo,CODIGO_REQUISICAO_EXIBE_INSUMO);
             }
         });
     }
@@ -116,6 +106,10 @@ public class ListaInsumosActivity extends AppCompatActivity {
         dao.salvaInsumo(insumo);
         adapter.adiciona(insumo);
 
+    }
+
+    public void atualizaInsumos(){
+        adapter.atualiza(dao.todos());
     }
 
     private boolean ehResultadoComInsumo(int requestCode, int resultCode, @Nullable Intent data) {

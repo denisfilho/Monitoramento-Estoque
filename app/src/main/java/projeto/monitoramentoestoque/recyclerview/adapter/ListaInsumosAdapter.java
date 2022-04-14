@@ -79,4 +79,10 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
         insumos.add(insumo);
         notifyDataSetChanged();
     }
+
+    public void atualiza(List<Insumo> insumos){
+        this.insumos.clear();
+        this.insumos.addAll(insumos);
+        notifyDataSetChanged();
+    }
 }
