@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoramentoEstoque">
         <activity
-            android:name=".activity.HistoricoEntradaConsumoActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.FormularioInserirEntradaConsumoActivity"
             android:exported="false" />
         <activity
