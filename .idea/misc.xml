@@ -4,11 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.20989583333333334" />
+        <entry key="app/src/main/res/layout/activity_formulario_inserir_entrada_consumo.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/layout/activity_formulario_insumo.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_formulario_nova_entrada.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_formulario_nova_entrada_consumo.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_formulario_novo_consumo.xml" value="0.3507692307692308" />
+        <entry key="app/src/main/res/layout/activity_historico_consumo.xml" value="0.3507692307692308" />
         <entry key="app/src/main/res/layout/activity_historico_entrada.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_historico_entrada_consumo.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/layout/activity_informacao_insumo.xml" value="0.2713841368584759" />
         <entry key="app/src/main/res/layout/activity_lista_insumos.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/item_consumo.xml" value="0.3507692307692308" />
+        <entry key="app/src/main/res/layout/item_consumo_entrada.xml" value="0.23333333333333334" />
+        <entry key="app/src/main/res/layout/item_entrada.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_entrada_consumo.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_insumo.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_formulario_insumo_salva.xml" value="0.23229166666666667" />
