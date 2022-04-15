@@ -19,6 +19,14 @@ import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
 public class InformacaoInsumoActivity extends AppCompatActivity {
 
     private SolicitacaoNovoConsumoEntrada solicitacaoNovoConsumoEntrada;
+    private TextView nomeInsumoRecebido;
+    private TextView unidadeInsumoRecebido;
+    private TextView estoqueAtualInsumoRecebido;
+    private TextView ultimaAtualizacaoInsumoRecebido;
+    private TextView botaoInserirNovaEntrada;
+    private TextView botaoInserirNovoConsumo;
+    private TextView botaoHistoricoEntradas;
+    private TextView botaoHistoricoConsumo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,55 +37,78 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
         if(insumoSelecionado.hasExtra(CHAVE_INSUMO)){
             Insumo insumoRecebido = (Insumo) insumoSelecionado.getSerializableExtra(CHAVE_INSUMO);
 
-            TextView nomeInsumoRecebido = findViewById(R.id.informacao_insumo_nome);
-            nomeInsumoRecebido.setText(insumoRecebido.getNome());
+            vinculaCampos();
+            preencheCampos(insumoRecebido);
+            configuraBotoes(insumoRecebido);
 
-            TextView unidadeInsumoRecebido = findViewById(R.id.informacao_insumo_unidade);
-            unidadeInsumoRecebido.setText("Unidade: " + insumoRecebido.getUnidade());
-
-            TextView estoqueAtualInsumoRecebido = findViewById(R.id.informacao_insumo_estoque_atual);
-            estoqueAtualInsumoRecebido.setText("Estoque Atual: " + Double.toString(insumoRecebido.getEstoqueAtual()));
-
-            TextView ultimaAtualizacaoInsumoRecebido = findViewById(R.id.informacao_insumo_data_ultima_atualizacao);
-            ultimaAtualizacaoInsumoRecebido.setText("Última Atualização: " + insumoRecebido.getDataUltimaAtualizacao());
-
-            TextView botaoInserirNovaEntrada = findViewById(R.id.informacao_insumo_inserir_nova_entrada);
-            botaoInserirNovaEntrada.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA,insumoRecebido);
-                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioInserirEntradaConsumoActivity.class);
-                }
-            });
-
-            TextView botaoInserirNovoConsumo = findViewById(R.id.informacao_insumo_inserir_novo_consumo);
-            botaoInserirNovoConsumo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO,insumoRecebido);
-                    InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioInserirEntradaConsumoActivity.class);
-                }
-            });
-            TextView botaoHistoricoEntradas = findViewById(R.id.informacao_insumo_historico_entradas);
-            botaoHistoricoEntradas.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent abreHistoricoDeEntrada = new Intent(InformacaoInsumoActivity.this, HistoricoEntradaActivity.class);
-                    abreHistoricoDeEntrada.putExtra(CHAVE_INSUMO, insumoRecebido);
-                    startActivity(abreHistoricoDeEntrada);
-                }
-            });
-
-            TextView botaoHistoricoConsumo = findViewById(R.id.informacao_insumo_historico_consumo);
-            botaoHistoricoConsumo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent abreHistoricoDeConsumo = new Intent(InformacaoInsumoActivity.this, HistoricoConsumoActivity.class);
-                    abreHistoricoDeConsumo.putExtra(CHAVE_INSUMO, insumoRecebido);
-                    startActivity(abreHistoricoDeConsumo);
-                }
-            });
         }
+    }
+
+    private void configuraBotoes(Insumo insumoRecebido) {
+        configuraBotaoInserirEntrada(insumoRecebido);
+        configuraBotaoInserirConsumo(insumoRecebido);
+        configuraBotaoExibirHistoricoEntrada(insumoRecebido);
+        comfiguraBotaoExibirHistoricoConsumo(insumoRecebido);
+    }
+
+    private void configuraBotaoExibirHistoricoEntrada(Insumo insumoRecebido) {
+        botaoHistoricoEntradas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent abreHistoricoDeEntrada = new Intent(InformacaoInsumoActivity.this, HistoricoEntradaActivity.class);
+                abreHistoricoDeEntrada.putExtra(CHAVE_INSUMO, insumoRecebido);
+                startActivity(abreHistoricoDeEntrada);
+            }
+        });
+    }
+
+    private void comfiguraBotaoExibirHistoricoConsumo(Insumo insumoRecebido) {
+        botaoHistoricoConsumo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent abreHistoricoDeConsumo = new Intent(InformacaoInsumoActivity.this, HistoricoConsumoActivity.class);
+                abreHistoricoDeConsumo.putExtra(CHAVE_INSUMO, insumoRecebido);
+                startActivity(abreHistoricoDeConsumo);
+            }
+        });
+    }
+
+    private void configuraBotaoInserirConsumo(Insumo insumoRecebido) {
+        botaoInserirNovoConsumo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVO_CONSUMO,insumoRecebido);
+                InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioInserirEntradaConsumoActivity.class);
+            }
+        });
+    }
+
+    private void configuraBotaoInserirEntrada(Insumo insumoRecebido) {
+        botaoInserirNovaEntrada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solicitacaoNovoConsumoEntrada = new SolicitacaoNovoConsumoEntrada(CHAVE_REQUISICAO_INSERE_NOVA_ENTRADA,insumoRecebido);
+                InserirEntradaOuConsumo(solicitacaoNovoConsumoEntrada, FormularioInserirEntradaConsumoActivity.class);
+            }
+        });
+    }
+
+    private void preencheCampos(Insumo insumoRecebido) {
+        nomeInsumoRecebido.setText(insumoRecebido.getNome());
+        unidadeInsumoRecebido.setText("Unidade: " + insumoRecebido.getUnidade());
+        estoqueAtualInsumoRecebido.setText("Estoque Atual: " + Double.toString(insumoRecebido.getEstoqueAtual()));
+        ultimaAtualizacaoInsumoRecebido.setText("Última Atualização: " + insumoRecebido.getDataUltimaAtualizacao());
+    }
+
+    private void vinculaCampos() {
+        nomeInsumoRecebido = findViewById(R.id.informacao_insumo_nome);
+        unidadeInsumoRecebido = findViewById(R.id.informacao_insumo_unidade);
+        estoqueAtualInsumoRecebido = findViewById(R.id.informacao_insumo_estoque_atual);
+        ultimaAtualizacaoInsumoRecebido = findViewById(R.id.informacao_insumo_data_ultima_atualizacao);
+        botaoInserirNovaEntrada = findViewById(R.id.informacao_insumo_inserir_nova_entrada);
+        botaoInserirNovoConsumo = findViewById(R.id.informacao_insumo_inserir_novo_consumo);
+        botaoHistoricoEntradas = findViewById(R.id.informacao_insumo_historico_entradas);
+        botaoHistoricoConsumo = findViewById(R.id.informacao_insumo_historico_consumo);
     }
 
     private void InserirEntradaOuConsumo(SolicitacaoNovoConsumoEntrada solicitacaoNovoConsumoEntrada, Class tipoFormulario) {
