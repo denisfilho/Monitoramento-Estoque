@@ -22,6 +22,7 @@ import projeto.monitoramentoestoque.database.InsumoDatabase;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickListener;
+import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClickListener;
 
 public class ListaInsumosActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
         configuraRecyclerView(todosInsumos);
 
         configuraBotaoInsereInsumo();
+
     }
 
     @Override
@@ -57,6 +59,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
         RecyclerView listaInsumos = findViewById(R.id.lista_insumos_recyclerview);
         configuraAdapter(todosInsumos, listaInsumos);
         configuraLayoutManager(listaInsumos);
+        registerForContextMenu(listaInsumos);
     }
 
     private void configuraAdapter(List<Insumo> todosInsumos, RecyclerView listaInsumos) {
@@ -68,6 +71,14 @@ public class ListaInsumosActivity extends AppCompatActivity {
                 Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
                 abreActivityInformacaoInsumo.putExtra(CHAVE_INSUMO, insumo);
                 startActivity(abreActivityInformacaoInsumo);
+            }
+        });
+        adapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+            @Override
+            public void OnItemLongClick(int posicao) {
+                Insumo insumo = dao.todos().get(posicao);
+                remove(insumo, posicao);
+                atualizaInsumos();
             }
         });
     }
@@ -110,6 +121,11 @@ public class ListaInsumosActivity extends AppCompatActivity {
 
     public void atualizaInsumos(){
         adapter.atualiza(dao.todos());
+    }
+
+    public void remove(Insumo insumo, int posicao){
+        dao.remove(insumo);
+        adapter.remove(insumo, posicao);
     }
 
     private boolean ehResultadoComInsumo(int requestCode, int resultCode, @Nullable Intent data) {

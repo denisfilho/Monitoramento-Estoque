@@ -14,23 +14,27 @@ import java.util.List;
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Entrada;
 import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClickListener;
 
 public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntradaAdapter.EntradaViewHolder> {
     private final List<Entrada> historicoEntrada;
     private final Context context;
     private final Insumo insumo;
-
+    private OnItemLongClickListener onItemLongClickListener;
 
     public HistoricoEntradaAdapter(Context context, List<Entrada> historicoEntrada, Insumo insumo) {
         this.historicoEntrada = historicoEntrada;
         this.context = context;
         this.insumo = insumo;
     }
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
 
     @NonNull
     @Override
     public HistoricoEntradaAdapter.EntradaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewCriada = LayoutInflater.from(context). inflate(R.layout.item_entrada, parent, false);
+        View viewCriada = LayoutInflater.from(context). inflate(R.layout.item_consumo_entrada, parent, false);
         return new HistoricoEntradaAdapter.EntradaViewHolder(viewCriada);
     }
 
@@ -52,8 +56,21 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
 
         public EntradaViewHolder(View itemView) {
             super(itemView);
-            data = itemView.findViewById(R.id.cardview_entrada_data);
-            quantidade = itemView.findViewById(R.id.cardview_entrada_quantidade);
+            data = itemView.findViewById(R.id.cardview_consumo_entrada_data);
+            quantidade = itemView.findViewById(R.id.cardview_consumo_entrada_quantidade);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (onItemLongClickListener!= null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            onItemLongClickListener.OnItemLongClick(pos);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
 
         private void vincular(Entrada entrada) {
@@ -75,8 +92,12 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
     public void atualiza(List<Entrada> entradas){
         this.historicoEntrada.clear();
         this.historicoEntrada.addAll(entradas);
-
-
         notifyDataSetChanged();
+    }
+
+    public void remove(Entrada entrada, int posicao){
+        historicoEntrada.remove(entrada);
+        notifyItemRemoved(posicao);
+        notifyItemRangeChanged(posicao, historicoEntrada.size());
     }
 }

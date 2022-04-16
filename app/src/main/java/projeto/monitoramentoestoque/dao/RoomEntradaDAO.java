@@ -1,6 +1,7 @@
 package projeto.monitoramentoestoque.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -21,4 +22,7 @@ public interface RoomEntradaDAO {
 
     @Query("SELECT * FROM ENTRADA")
     List<Entrada> todasEntradas();
+
+    @Delete
+    void remove(Entrada entrada);
 }

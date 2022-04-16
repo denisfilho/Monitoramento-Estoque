@@ -13,16 +13,24 @@ import java.util.List;
 
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.dao.RoomConsumoDAO;
+import projeto.monitoramentoestoque.dao.RoomInsumoDAO;
 import projeto.monitoramentoestoque.database.InsumoDatabase;
 import projeto.monitoramentoestoque.model.Consumo;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.HistoricoConsumoAdapter;
+import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
+import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClickListener;
 
 public class HistoricoConsumoActivity extends AppCompatActivity {
 
     private HistoricoConsumoAdapter adapter;
+
     private RoomConsumoDAO dao;
+    private RoomInsumoDAO daoInsumo;
+
     private Insumo insumo;
+
+    private ListaInsumosAdapter adapterInsumo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,10 @@ public class HistoricoConsumoActivity extends AppCompatActivity {
         return historicoConsumo;
     }
 
+    public void atualizaConsumos(){
+        adapter.atualiza(dao.todosConsumos());
+    }
+
     private void configuraRecyclerView(List<Consumo> historicoConsumo) {
         RecyclerView listaHistoricoConsumo = findViewById(R.id.historico_consumo_recyclerview);
         configuraAdapter(historicoConsumo, listaHistoricoConsumo);
@@ -55,10 +67,32 @@ public class HistoricoConsumoActivity extends AppCompatActivity {
     private void configuraAdapter(List<Consumo> historicoConsumo, RecyclerView listaHistoricoConsumo) {
         adapter = new HistoricoConsumoAdapter(this, historicoConsumo, insumo);
         listaHistoricoConsumo.setAdapter(adapter);
+        adapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+            @Override
+            public void OnItemLongClick(int posicao) {
+                daoInsumo = InsumoDatabase.getInstance(getApplicationContext()).getRoomInsumoGeralDAO();
+                adapterInsumo = new ListaInsumosAdapter(getApplicationContext(), daoInsumo.todos());
+
+                Consumo consumo = dao.buscaHistoricoDeConsumo(insumo.getId()).get(posicao);
+
+                insumo.setEstoqueAtual(insumo.getEstoqueAtual() + consumo.getQuantidade()); //Aumentando o valor do estoque atual pelo valor do consumo excluída
+
+                remove(consumo, posicao);
+                atualizaConsumos();
+
+                daoInsumo.altera(insumo);
+                adapterInsumo.atualiza(daoInsumo.todos());
+            }
+        });
     }
 
     private void configuraLayoutManager(RecyclerView listaHistoricoConsumo) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         listaHistoricoConsumo.setLayoutManager(layoutManager);
+    }
+
+    public void remove(Consumo consumo, int posicao){
+        dao.removeConsumo(consumo);
+        adapter.remove(consumo, posicao);
     }
 }

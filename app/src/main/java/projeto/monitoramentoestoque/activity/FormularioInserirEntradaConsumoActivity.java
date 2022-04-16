@@ -40,7 +40,7 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
     private RoomConsumoDAO daoConsumo;
     private double valor;
 
-    private ListaInsumosAdapter adapter;
+    private ListaInsumosAdapter adapterInsumo;
     private Button botaoInserirNovaEntradaConsumo;
     private String dataInformada;
 
@@ -97,7 +97,7 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
     private void alterarValorEstoqueAtual() {
         insumo.setEstoqueAtual(insumo.getEstoqueAtual() + valor);
         daoInsumo.altera(insumo);
-        adapter.atualiza(daoInsumo.todos());
+        adapterInsumo.atualiza(daoInsumo.todos());
     }
 
     private void salvaHistoricoConsumo() {
@@ -118,7 +118,7 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
     }
 
     private void configuraAdapterListaInsumos() {
-        adapter = new ListaInsumosAdapter(context, daoInsumo.todos());
+        adapterInsumo = new ListaInsumosAdapter(context, daoInsumo.todos());
     }
 
     private void configuraDAOInsumo() {

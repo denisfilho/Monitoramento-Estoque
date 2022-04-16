@@ -1,6 +1,7 @@
 package projeto.monitoramentoestoque.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -8,6 +9,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import projeto.monitoramentoestoque.model.Consumo;
+
 @Dao
 public interface RoomConsumoDAO {
     @Transaction
@@ -19,4 +21,8 @@ public interface RoomConsumoDAO {
 
     @Query("SELECT * FROM CONSUMO")
     List<Consumo> todosConsumos();
+
+    @Delete
+    void removeConsumo(Consumo consumo);
+
 }

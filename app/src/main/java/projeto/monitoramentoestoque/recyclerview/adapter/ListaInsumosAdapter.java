@@ -14,11 +14,13 @@ import java.util.List;
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickListener;
+import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClickListener;
 
 public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapter.InsumoViewHolder> {
     private final List<Insumo> insumos;
     private final Context context;
     private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     public ListaInsumosAdapter(Context context, List<Insumo> insumos) {
         this.insumos = insumos;
@@ -28,6 +30,11 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+
 
     @NonNull
     @Override
@@ -47,6 +54,11 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
         return insumos.size();
     }
 
+    public Insumo getItem(int position){
+
+        return insumos.get(position);
+    }
+
     class InsumoViewHolder extends RecyclerView.ViewHolder {
         private final TextView nomeInsumo;
         private final TextView estoqueAtualInsumo;
@@ -60,6 +72,19 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.OnItemClick(insumo);
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (onItemLongClickListener!= null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            onItemLongClickListener.OnItemLongClick(pos);
+                        }
+                    }
+                    return true;
                 }
             });
         }
@@ -84,5 +109,12 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
         this.insumos.clear();
         this.insumos.addAll(insumos);
         notifyDataSetChanged();
+    }
+
+    public void remove(Insumo insumo, int posicao){
+
+        insumos.remove(insumo);
+        notifyItemRemoved(posicao);
+        notifyItemRangeChanged(posicao, insumos.size());
     }
 }
