@@ -35,7 +35,6 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
-
     @NonNull
     @Override
     public ListaInsumosAdapter.InsumoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,12 +67,20 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
             super(itemView);
             nomeInsumo = itemView.findViewById(R.id.cardview_item_insumo_nome);
             estoqueAtualInsumo = itemView.findViewById(R.id.cardview_item_insumo_quantidade);
+            configuraExibicaoInsumo(itemView);
+            configuraRemocaoInsumo(itemView);
+        }
+
+        private void configuraExibicaoInsumo(View itemView) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.OnItemClick(insumo);
                 }
             });
+        }
+
+        private void configuraRemocaoInsumo(View itemView) {
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -112,7 +119,6 @@ public class ListaInsumosAdapter extends RecyclerView.Adapter<ListaInsumosAdapte
     }
 
     public void remove(Insumo insumo, int posicao){
-
         insumos.remove(insumo);
         notifyItemRemoved(posicao);
         notifyItemRangeChanged(posicao, insumos.size());

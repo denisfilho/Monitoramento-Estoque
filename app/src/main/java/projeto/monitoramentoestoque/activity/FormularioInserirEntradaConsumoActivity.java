@@ -28,21 +28,22 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
     public static final String MENSAGEM_ENTRADA_ADICIONADA = "Entrada adicionada!";
     public static final String MENSAGEM_CONSUMO_ADICIONADO = "Consumo adicionado!";
+
     private String tituloAppBar;
+    private String dataInformada;
     private EditText data;
     private EditText quantidade;
+    private Button botaoInserirNovaEntradaConsumo;
     private Context context;
 
     private Insumo insumo;
 
-    private RoomEntradaDAO daoEntrada;
-    private RoomInsumoDAO daoInsumo;
-    private RoomConsumoDAO daoConsumo;
-    private double valor;
+    private RoomEntradaDAO historicoEntradaDAO;
+    private RoomInsumoDAO listaInsumosDAO;
+    private RoomConsumoDAO historicoConsumoDAO;
 
-    private ListaInsumosAdapter adapterInsumo;
-    private Button botaoInserirNovaEntradaConsumo;
-    private String dataInformada;
+    private ListaInsumosAdapter listaInsumosAdapter;
+    private double valor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,20 +97,20 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
     private void alterarValorEstoqueAtual() {
         insumo.setEstoqueAtual(insumo.getEstoqueAtual() + valor);
-        daoInsumo.altera(insumo);
-        adapterInsumo.atualiza(daoInsumo.todos());
+        listaInsumosDAO.altera(insumo);
+        listaInsumosAdapter.atualiza(listaInsumosDAO.todos());
     }
 
     private void salvaHistoricoConsumo() {
-        daoConsumo = InsumoDatabase.getInstance(context).getRoomHistoricoConsumoDAO();
+        historicoConsumoDAO = InsumoDatabase.getInstance(context).getRoomHistoricoConsumoDAO();
         Consumo consumo = new Consumo(data.getText().toString(), Double.parseDouble(quantidade.getText().toString()), insumo.getId());
-        daoConsumo.salvaConsumo(consumo);
+        historicoConsumoDAO.salvaConsumo(consumo);
     }
 
     private void salvaHistoricoEntrada() {
-        daoEntrada = InsumoDatabase.getInstance(context).getRoomHistoricoEntradaDAO();
+        historicoEntradaDAO = InsumoDatabase.getInstance(context).getRoomHistoricoEntradaDAO();
         Entrada entrada = new Entrada(dataInformada, valor, insumo.getId());
-        daoEntrada.salvaEntrada(entrada);
+        historicoEntradaDAO.salvaEntrada(entrada);
     }
 
     private void salvaValoresEnviadosPeloFormulario() {
@@ -118,11 +119,11 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
     }
 
     private void configuraAdapterListaInsumos() {
-        adapterInsumo = new ListaInsumosAdapter(context, daoInsumo.todos());
+        listaInsumosAdapter = new ListaInsumosAdapter(context, listaInsumosDAO.todos());
     }
 
     private void configuraDAOInsumo() {
-        daoInsumo = InsumoDatabase.getInstance(context).getRoomInsumoGeralDAO();
+        listaInsumosDAO = InsumoDatabase.getInstance(context).getRoomInsumoGeralDAO();
     }
 
     private void vinculaCamposDoFormulario() {

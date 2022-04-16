@@ -4,6 +4,7 @@ import static projeto.monitoramentoestoque.activity.InsumoActivityConstantes.CHA
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,28 +24,32 @@ import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClic
 
 public class HistoricoEntradaActivity extends AppCompatActivity {
 
-    private HistoricoEntradaAdapter adapter;
+    public static final String TITULO_APPBAR = "Histórico de Entrada";
+    public static final String MENSAGEM_ENTRADA_REMOVIDA = "Entrada Removida!";
 
-    private RoomEntradaDAO dao;
-    private RoomInsumoDAO daoInsumo;
+    private HistoricoEntradaAdapter historicoEntradaAdapter;
+    private ListaInsumosAdapter listaInsumosAdapter;
+
+    private RoomEntradaDAO historicoEntradaDAO;
+    private RoomInsumoDAO listaInsumosDAO;
 
     private Insumo insumo;
 
-    private ListaInsumosAdapter adapterInsumo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico_entrada);
+        setTitle(TITULO_APPBAR);
 
         Intent intent = getIntent();
         if(intent.hasExtra(CHAVE_INSUMO)){
             insumo = (Insumo) intent.getSerializableExtra(CHAVE_INSUMO);
-            dao = InsumoDatabase.getInstance(getApplicationContext()).getRoomHistoricoEntradaDAO();
+            historicoEntradaDAO = InsumoDatabase.getInstance(getApplicationContext()).getRoomHistoricoEntradaDAO();
 
             List<Entrada> historicoEntrada = pegaHistoricoEntrada();
 
-            configuraRecyclerView(historicoEntrada);
+            configuraRecyclerViewHistoricoEntrada(historicoEntrada);
         }
 
     }
@@ -57,39 +62,62 @@ public class HistoricoEntradaActivity extends AppCompatActivity {
 
     private List<Entrada> pegaHistoricoEntrada() {;
 
-        List<Entrada> historicoEntrada = dao.buscaHistoricoDeEntrada(insumo.getId());
+        List<Entrada> historicoEntrada = historicoEntradaDAO.buscaHistoricoDeEntrada(insumo.getId());
         return historicoEntrada;
     }
 
     public void atualizaEntradas(){
-        adapter.atualiza(dao.todasEntradas());
+        historicoEntradaAdapter.atualiza(historicoEntradaDAO.todasEntradas());
     }
 
-    private void configuraRecyclerView(List<Entrada> historicoEntrada) {
+    private void configuraRecyclerViewHistoricoEntrada(List<Entrada> historicoEntrada) {
         RecyclerView listaHistoricoEntrada = findViewById(R.id.historico_entrada_recyclerview);
-        configuraAdapter(historicoEntrada, listaHistoricoEntrada);
+        configuraAdapterHistoricoEntrada(historicoEntrada, listaHistoricoEntrada);
         configuraLayoutManager(listaHistoricoEntrada);
     }
 
-    private void configuraAdapter(List<Entrada> historicoEntrada, RecyclerView listaHistoricoEntrada) {
-        adapter = new HistoricoEntradaAdapter(this, historicoEntrada, insumo);
-        listaHistoricoEntrada.setAdapter(adapter);
-        adapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+    private void configuraAdapterHistoricoEntrada(List<Entrada> historicoEntrada, RecyclerView listaHistoricoEntrada) {
+        historicoEntradaAdapter = new HistoricoEntradaAdapter(this, historicoEntrada, insumo);
+        listaHistoricoEntrada.setAdapter(historicoEntradaAdapter);
+        configuraRemocaoEntrada();
+    }
+
+    private void configuraRemocaoEntrada() {
+        historicoEntradaAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public void OnItemLongClick(int posicao) {
-                daoInsumo = InsumoDatabase.getInstance(getApplicationContext()).getRoomInsumoGeralDAO();
-                adapterInsumo = new ListaInsumosAdapter(getApplicationContext(), daoInsumo.todos());
-
-                Entrada entrada = dao.buscaHistoricoDeEntrada(insumo.getId()).get(posicao);
-
-                insumo.setEstoqueAtual(insumo.getEstoqueAtual() - entrada.getQuantidade()); //Diminuindo o valor do estoque atual pelo valor da entrada excluída
-
-                remove(entrada, posicao);
-                atualizaEntradas();
-                daoInsumo.altera(insumo);
-                adapterInsumo.atualiza(daoInsumo.todos());
+                configuraDAOListaInsumos();
+                configuraAdapterListaInsumos();
+                Entrada entrada = retornaEntradaRemovida(posicao);
+                alteraEstoqueAtualDoInsumo(entrada);
+                atualizaHistoricoDeEntradaEListaInsumos();
             }
         });
+    }
+
+    private void atualizaHistoricoDeEntradaEListaInsumos() {
+        atualizaEntradas();
+        listaInsumosDAO.altera(insumo);
+        listaInsumosAdapter.atualiza(listaInsumosDAO.todos());
+    }
+
+    private void alteraEstoqueAtualDoInsumo(Entrada entrada) {
+        insumo.setEstoqueAtual(insumo.getEstoqueAtual() - entrada.getQuantidade());
+    }
+
+    private Entrada retornaEntradaRemovida(int posicao) {
+        Entrada entrada = historicoEntradaDAO.buscaHistoricoDeEntrada(insumo.getId()).get(posicao);
+        remove(entrada, posicao);
+        Toast.makeText(getApplicationContext(), MENSAGEM_ENTRADA_REMOVIDA, Toast.LENGTH_LONG).show();
+        return entrada;
+    }
+
+    private void configuraAdapterListaInsumos() {
+        listaInsumosAdapter = new ListaInsumosAdapter(getApplicationContext(), listaInsumosDAO.todos());
+    }
+
+    private void configuraDAOListaInsumos() {
+        listaInsumosDAO = InsumoDatabase.getInstance(getApplicationContext()).getRoomInsumoGeralDAO();
     }
 
     private void configuraLayoutManager(RecyclerView listaHistoricoEntrada) {
@@ -97,7 +125,7 @@ public class HistoricoEntradaActivity extends AppCompatActivity {
         listaHistoricoEntrada.setLayoutManager(layoutManager);
     }
     public void remove(Entrada entrada, int posicao){
-        dao.remove(entrada);
-        adapter.remove(entrada, posicao);
+        historicoEntradaDAO.remove(entrada);
+        historicoEntradaAdapter.remove(entrada, posicao);
     }
 }

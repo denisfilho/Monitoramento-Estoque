@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,15 +27,16 @@ import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClic
 
 public class ListaInsumosActivity extends AppCompatActivity {
 
-    private ListaInsumosAdapter adapter;
-    private RoomInsumoDAO dao;
+    public static final String MENSAGEM_INSUMO_REMOVIDO = "Insumo Removido!";
+    private ListaInsumosAdapter listaInsumosAdapter;
+    private RoomInsumoDAO listaInsumosDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_insumos);
 
-        dao = InsumoDatabase.getInstance(getApplicationContext()).getRoomInsumoGeralDAO();
+        listaInsumosDAO = InsumoDatabase.getInstance(getApplicationContext()).getRoomInsumoGeralDAO();
 
         List<Insumo> todosInsumos = pegaTodosInsumos();
         configuraRecyclerView(todosInsumos);
@@ -51,7 +53,7 @@ public class ListaInsumosActivity extends AppCompatActivity {
 
     private List<Insumo> pegaTodosInsumos() {
 
-        List<Insumo> todosInsumos = dao.todos();
+        List<Insumo> todosInsumos = listaInsumosDAO.todos();
         return todosInsumos;
     }
 
@@ -63,9 +65,14 @@ public class ListaInsumosActivity extends AppCompatActivity {
     }
 
     private void configuraAdapter(List<Insumo> todosInsumos, RecyclerView listaInsumos) {
-        adapter = new ListaInsumosAdapter(this, todosInsumos);
-        listaInsumos.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        listaInsumosAdapter = new ListaInsumosAdapter(this, todosInsumos);
+        listaInsumos.setAdapter(listaInsumosAdapter);
+        configuraExibicaoInsumo();
+        configuraRemocaoInsumo();
+    }
+
+    private void configuraExibicaoInsumo() {
+        listaInsumosAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(Insumo insumo) {
                 Intent abreActivityInformacaoInsumo = new Intent(ListaInsumosActivity.this,InformacaoInsumoActivity.class);
@@ -73,10 +80,13 @@ public class ListaInsumosActivity extends AppCompatActivity {
                 startActivity(abreActivityInformacaoInsumo);
             }
         });
-        adapter.setOnItemLongClickListener(new OnItemLongClickListener() {
+    }
+
+    private void configuraRemocaoInsumo() {
+        listaInsumosAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public void OnItemLongClick(int posicao) {
-                Insumo insumo = dao.todos().get(posicao);
+                Insumo insumo = listaInsumosDAO.todos().get(posicao);
                 remove(insumo, posicao);
                 atualizaInsumos();
             }
@@ -114,18 +124,19 @@ public class ListaInsumosActivity extends AppCompatActivity {
     }
 
     private void adiciona(Insumo insumo) {
-        dao.salvaInsumo(insumo);
-        adapter.adiciona(insumo);
+        listaInsumosDAO.salvaInsumo(insumo);
+        listaInsumosAdapter.adiciona(insumo);
 
     }
 
     public void atualizaInsumos(){
-        adapter.atualiza(dao.todos());
+        listaInsumosAdapter.atualiza(listaInsumosDAO.todos());
     }
 
     public void remove(Insumo insumo, int posicao){
-        dao.remove(insumo);
-        adapter.remove(insumo, posicao);
+        listaInsumosDAO.remove(insumo);
+        listaInsumosAdapter.remove(insumo, posicao);
+        Toast.makeText(getApplicationContext(), MENSAGEM_INSUMO_REMOVIDO, Toast.LENGTH_LONG).show();
     }
 
     private boolean ehResultadoComInsumo(int requestCode, int resultCode, @Nullable Intent data) {

@@ -18,7 +18,9 @@ import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
 
 public class InformacaoInsumoActivity extends AppCompatActivity {
 
+    public static final String TITULO_APPBAR = "Informação Detalhada";
     private SolicitacaoNovoConsumoEntrada solicitacaoNovoConsumoEntrada;
+
     private TextView nomeInsumoRecebido;
     private TextView unidadeInsumoRecebido;
     private TextView estoqueAtualInsumoRecebido;
@@ -32,6 +34,7 @@ public class InformacaoInsumoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacao_insumo);
+        setTitle(TITULO_APPBAR);
 
         Intent insumoSelecionado = getIntent();
         if(insumoSelecionado.hasExtra(CHAVE_INSUMO)){

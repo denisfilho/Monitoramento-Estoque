@@ -58,6 +58,10 @@ public class HistoricoEntradaAdapter extends RecyclerView.Adapter<HistoricoEntra
             super(itemView);
             data = itemView.findViewById(R.id.cardview_consumo_entrada_data);
             quantidade = itemView.findViewById(R.id.cardview_consumo_entrada_quantidade);
+            configuraRemocaoEntrada(itemView);
+        }
+
+        private void configuraRemocaoEntrada(View itemView) {
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
