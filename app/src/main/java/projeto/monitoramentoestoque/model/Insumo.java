@@ -47,12 +47,16 @@ public class Insumo implements Serializable {
         return dataUltimaAtualizacao;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setEstoqueAtual(double estoqueAtual) {
         this.estoqueAtual = estoqueAtual;
     }
 
-    public Long getId() {
-        return id;
+    public void setDataUltimaAtualizacao(String dataUltimaAtualizacao) {
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
     public void setId(Long id) {

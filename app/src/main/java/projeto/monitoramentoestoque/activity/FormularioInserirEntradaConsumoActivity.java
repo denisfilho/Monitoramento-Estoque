@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.dao.RoomConsumoDAO;
 import projeto.monitoramentoestoque.dao.RoomEntradaDAO;
@@ -23,6 +25,7 @@ import projeto.monitoramentoestoque.model.Entrada;
 import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
+import projeto.monitoramentoestoque.util.CalendarUtil;
 
 public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
@@ -90,15 +93,25 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
                 }
                 alterarValorEstoqueAtual();
+                alterarDataUltimaAtualizacao();
+                salvaAlteracoes();
                 finish();
             }
         });
     }
 
-    private void alterarValorEstoqueAtual() {
-        insumo.setEstoqueAtual(insumo.getEstoqueAtual() + valor);
+    private void salvaAlteracoes() {
         listaInsumosDAO.altera(insumo);
         listaInsumosAdapter.atualiza(listaInsumosDAO.todos());
+    }
+
+    private void alterarDataUltimaAtualizacao() {
+        Calendar dataAtualizada = Calendar.getInstance();
+        insumo.setDataUltimaAtualizacao(CalendarUtil.converterCalendarParaString(dataAtualizada));
+    }
+
+    private void alterarValorEstoqueAtual() {
+        insumo.setEstoqueAtual(insumo.getEstoqueAtual() + valor);
     }
 
     private void salvaHistoricoConsumo() {
