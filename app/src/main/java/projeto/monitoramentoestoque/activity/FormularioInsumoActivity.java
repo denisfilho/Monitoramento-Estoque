@@ -21,13 +21,17 @@ import projeto.monitoramentoestoque.util.CalendarUtil;
 public class FormularioInsumoActivity extends AppCompatActivity {
 
 
+    public static final String TITULO_APPBAR = "Novo Insumo";
+    private EditText nome;
+    private EditText unidade;
+    private EditText estoque;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_insumo);
 
-        setTitle("Novo Insumo");
+        setTitle(TITULO_APPBAR);
     }
 
     @Override
@@ -54,13 +58,16 @@ public class FormularioInsumoActivity extends AppCompatActivity {
 
     @NonNull
     private Insumo criaInsumo() {
-        EditText nome = findViewById(R.id.formulario_insumo_nome);
-        EditText unidade = findViewById(R.id.formulario_insumo_unidade);
-        EditText estoque = findViewById(R.id.formulario_insumo_estoque);
-
+        vinculaCamposDoFormulario();
         String dataString = CalendarUtil.converterCalendarParaString(Calendar.getInstance());
+        Insumo insumo = new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), dataString);
+        return insumo;
+    }
 
-        return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), dataString);
+    private void vinculaCamposDoFormulario() {
+        nome = findViewById(R.id.formulario_insumo_nome);
+        unidade = findViewById(R.id.formulario_insumo_unidade);
+        estoque = findViewById(R.id.formulario_insumo_estoque);
     }
 
     private boolean ehMenuSalvaInsumo(@NonNull MenuItem item) {
