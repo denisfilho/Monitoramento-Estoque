@@ -12,11 +12,11 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.util.CalendarUtil;
 
 public class FormularioInsumoActivity extends AppCompatActivity {
 
@@ -58,17 +58,9 @@ public class FormularioInsumoActivity extends AppCompatActivity {
         EditText unidade = findViewById(R.id.formulario_insumo_unidade);
         EditText estoque = findViewById(R.id.formulario_insumo_estoque);
 
-        String dataString = converterCalendarParaString();
+        String dataString = CalendarUtil.converterCalendarParaString(Calendar.getInstance());
 
         return new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), dataString);
-    }
-
-    @NonNull
-    private String converterCalendarParaString() {
-        Calendar dataCalendar = Calendar.getInstance();
-        SimpleDateFormat formatoData = new SimpleDateFormat( "dd/MM/yyyy" );
-        String dataString = formatoData.format(dataCalendar.getTime());
-        return dataString;
     }
 
     private boolean ehMenuSalvaInsumo(@NonNull MenuItem item) {
