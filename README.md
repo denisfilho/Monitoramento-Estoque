@@ -1,6 +1,6 @@
 # Monitoramento-Estoque
 
-O aplicativo tem como objetivo em monitorar o estoque de matérias-primas de uma organização.Clicando [AQUI](https://miro.com/app/board/uXjVO8YPA-g=/?share_link_id=852295467882) pode-se ver o esboço do projeto e também um fluxo ordenado a uma melhor construção deste projeto.
+O aplicativo tem como objetivo em monitorar o estoque de matérias-primas de uma organização. Clicando [AQUI](https://miro.com/app/board/uXjVO8YPA-g=/?share_link_id=852295467882) pode-se ver o esboço do projeto e também um fluxo ordenado para uma melhor construção deste projeto.
 
 Pode-se ver as telas que o aplicativo apresenta ao usuário clicando [AQUI](https://whimsical.com/projeto-estoque-9Bvj8ynLmzwQ8bmE8SNpSS)
 
@@ -30,7 +30,7 @@ Esta tela irá apresentar informações mais detalhadas a respeito da matéria-p
 <img src = "https://user-images.githubusercontent.com/86139485/163841378-137c020a-c240-4229-84f7-672f56093b28.png" height = "700px">   <img src = "https://user-images.githubusercontent.com/86139485/163841382-4c638325-aad6-4952-833c-a66a3bd379d5.png" height = "700px">
 
 ## Pontos de Melhoria
-* **Substituir método depreciados** - como o <span style="color:red">startActivityForResult</font>;
+* **Substituir métodos depreciados** - como o startActivityForResult;
 * Ao remover um(a) consumo/entrada o estoque atual não se atualiza simultaneamente. Só é atualizado quando volta para a activity principal (**ListaInsumosActivity**);
 * Tornar o atributo **Data de Atualização** do tipo *Calendar*
-  * Além disso, fazer as alterações necessária para para o funcionamento total do projeto com esta implementação - usar o *@TypeConverter*   
+  * Além disso, fazer as alterações necessárias para o funcionamento total do projeto com esta implementação - usar o *@TypeConverter*   
