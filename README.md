@@ -1,7 +1,9 @@
 # Monitoramento-Estoque
 
 O aplicativo tem como objetivo em monitorar o estoque de matérias-primas de uma organização.
-Pode-se ver o esboço do projeto, clicando [AQUI](https://whimsical.com/projeto-estoque-9Bvj8ynLmzwQ8bmE8SNpSS)
+Pode-se ver o esboço do projeto, [AQUI](https://miro.com/app/board/uXjVO8YPA-g=/?share_link_id=852295467882)
+
+Pode-se ver as telas que o aplicativo apresenta ao usuário clicando [AQUI](https://whimsical.com/projeto-estoque-9Bvj8ynLmzwQ8bmE8SNpSS)
 
 ## Tela 1: Lista de Insumos
 Nesta tela, é apresentada uma lista resumida dos insumos cadastrados, onde o usuário tem a possibilidade de verificar  de forma rápida o nível atual que determinado insumo se encontra.
