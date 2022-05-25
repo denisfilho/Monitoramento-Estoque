@@ -8,7 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.model.entities.Insumo;
 
 @Dao
 public interface RoomInsumoDAO {

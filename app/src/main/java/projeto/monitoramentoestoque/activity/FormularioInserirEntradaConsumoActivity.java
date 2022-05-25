@@ -16,16 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 
 import projeto.monitoramentoestoque.R;
+import projeto.monitoramentoestoque.converter.CalendarStringConverter;
 import projeto.monitoramentoestoque.dao.RoomConsumoDAO;
 import projeto.monitoramentoestoque.dao.RoomEntradaDAO;
 import projeto.monitoramentoestoque.dao.RoomInsumoDAO;
 import projeto.monitoramentoestoque.database.InsumoDatabase;
-import projeto.monitoramentoestoque.model.Consumo;
-import projeto.monitoramentoestoque.model.Entrada;
-import projeto.monitoramentoestoque.model.Insumo;
 import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
+import projeto.monitoramentoestoque.model.entities.Consumo;
+import projeto.monitoramentoestoque.model.entities.Entrada;
+import projeto.monitoramentoestoque.model.entities.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
-import projeto.monitoramentoestoque.util.CalendarUtil;
 
 public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
@@ -33,7 +33,6 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
     public static final String MENSAGEM_CONSUMO_ADICIONADO = "Consumo adicionado!";
 
     private String tituloAppBar;
-    private String dataInformada;
     private EditText data;
     private EditText quantidade;
     private Button botaoInserirNovaEntradaConsumo;
@@ -47,6 +46,10 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
     private ListaInsumosAdapter listaInsumosAdapter;
     private double valor;
+
+
+    private CalendarStringConverter conversorCalendar = new CalendarStringConverter();
+    private Calendar dataCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +69,11 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
             vinculaCamposDoFormulario();
 
-            configuraBotaoInserirEntradaConsumo(solicitacao);
+            configuraBotaoInserirEntradaConsumo();
         }
     }
 
-    private void configuraBotaoInserirEntradaConsumo(SolicitacaoNovoConsumoEntrada solicitacao) {
+    private void configuraBotaoInserirEntradaConsumo() {
         botaoInserirNovaEntradaConsumo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +110,7 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
     private void alterarDataUltimaAtualizacao() {
         Calendar dataAtualizada = Calendar.getInstance();
-        insumo.setDataUltimaAtualizacao(CalendarUtil.converterCalendarParaString(dataAtualizada));
+        insumo.setDataUltimaAtualizacao(dataAtualizada);
     }
 
     private void alterarValorEstoqueAtual() {
@@ -116,19 +119,19 @@ public class FormularioInserirEntradaConsumoActivity extends AppCompatActivity {
 
     private void salvaHistoricoConsumo() {
         historicoConsumoDAO = InsumoDatabase.getInstance(context).getRoomHistoricoConsumoDAO();
-        Consumo consumo = new Consumo(data.getText().toString(), Double.parseDouble(quantidade.getText().toString()), insumo.getId());
+        Consumo consumo = new Consumo(dataCalendar, valor, insumo.getId());
         historicoConsumoDAO.salvaConsumo(consumo);
     }
 
     private void salvaHistoricoEntrada() {
         historicoEntradaDAO = InsumoDatabase.getInstance(context).getRoomHistoricoEntradaDAO();
-        Entrada entrada = new Entrada(dataInformada, valor, insumo.getId());
+        Entrada entrada = new Entrada(dataCalendar, valor, insumo.getId());
         historicoEntradaDAO.salvaEntrada(entrada);
     }
 
     private void salvaValoresEnviadosPeloFormulario() {
         valor = Double.parseDouble(quantidade.getText().toString());
-        dataInformada = data.getText().toString();
+        dataCalendar = conversorCalendar.conveterStringParaCalendar(data.getText().toString());
     }
 
     private void configuraAdapterListaInsumos() {

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import projeto.monitoramentoestoque.R;
-import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.model.entities.Insumo;
 import projeto.monitoramentoestoque.model.SolicitacaoNovoConsumoEntrada;
 
 public class InformacaoInsumoActivity extends AppCompatActivity {

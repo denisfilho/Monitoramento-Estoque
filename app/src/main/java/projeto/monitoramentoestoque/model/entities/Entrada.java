@@ -1,4 +1,4 @@
-package projeto.monitoramentoestoque.model;
+package projeto.monitoramentoestoque.model.entities;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -8,34 +8,34 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Insumo.class, parentColumns = "id", childColumns = "insumoId", onDelete = CASCADE)})
-public class Consumo implements Serializable {
-
+public class Entrada implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private Long idConsumo;
-    @ColumnInfo(name = "CONSUMO_DATA")
-    private String data;
-    @ColumnInfo(name = "CONSUMO_QTD")
+    private Long idEntrada;
+    @ColumnInfo(name = "ENTRADA_DATA")
+    private Calendar data;
+    @ColumnInfo(name = "ENTRADA_QTD")
     private double quantidade;
 
-    private final Long insumoId;
+    private Long insumoId;
 
-    public Consumo(String data, double quantidade, Long insumoId) {
+    public Entrada(Calendar data, double quantidade, Long insumoId) {
         this.data = data;
         this.quantidade = quantidade;
         this.insumoId = insumoId;
     }
 
-    public Long getIdConsumo() {
-        return idConsumo;
+    public Long getIdEntrada() {
+        return idEntrada;
     }
 
-    public void setIdConsumo(Long idConsumo) {
-        this.idConsumo = idConsumo;
+    public void setIdEntrada(Long idEntrada) {
+        this.idEntrada = idEntrada;
     }
 
-    public void setData(String data) {
+    public void setData(Calendar data) {
         this.data = data;
     }
 
@@ -47,7 +47,11 @@ public class Consumo implements Serializable {
         return insumoId;
     }
 
-    public String getData() {
+    public void setInsumoId(Long insumoId) {
+        this.insumoId = insumoId;
+    }
+
+    public Calendar getData() {
         return data;
     }
 
@@ -55,4 +59,3 @@ public class Consumo implements Serializable {
         return quantidade;
     }
 }
-

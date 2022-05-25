@@ -8,7 +8,7 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
-import projeto.monitoramentoestoque.model.Consumo;
+import projeto.monitoramentoestoque.model.entities.Consumo;
 
 @Dao
 public interface RoomConsumoDAO {

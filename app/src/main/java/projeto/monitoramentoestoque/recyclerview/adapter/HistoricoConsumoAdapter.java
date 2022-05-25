@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import projeto.monitoramentoestoque.R;
-import projeto.monitoramentoestoque.model.Consumo;
-import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.model.entities.Consumo;
+import projeto.monitoramentoestoque.model.entities.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClickListener;
 
 public class HistoricoConsumoAdapter extends RecyclerView.Adapter<HistoricoConsumoAdapter.ConsumoViewHolder> {

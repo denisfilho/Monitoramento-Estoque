@@ -20,7 +20,7 @@ import java.util.List;
 import projeto.monitoramentoestoque.R;
 import projeto.monitoramentoestoque.dao.RoomInsumoDAO;
 import projeto.monitoramentoestoque.database.InsumoDatabase;
-import projeto.monitoramentoestoque.model.Insumo;
+import projeto.monitoramentoestoque.model.entities.Insumo;
 import projeto.monitoramentoestoque.recyclerview.adapter.ListaInsumosAdapter;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemClickListener;
 import projeto.monitoramentoestoque.recyclerview.adapter.listener.OnItemLongClickListener;

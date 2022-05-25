@@ -15,8 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 
 import projeto.monitoramentoestoque.R;
-import projeto.monitoramentoestoque.model.Insumo;
-import projeto.monitoramentoestoque.util.CalendarUtil;
+import projeto.monitoramentoestoque.converter.CalendarStringConverter;
+import projeto.monitoramentoestoque.model.entities.Insumo;
 
 public class FormularioInsumoActivity extends AppCompatActivity {
 
@@ -58,9 +58,10 @@ public class FormularioInsumoActivity extends AppCompatActivity {
 
     @NonNull
     private Insumo criaInsumo() {
+        CalendarStringConverter conversor = new CalendarStringConverter();
+
         vinculaCamposDoFormulario();
-        String dataString = CalendarUtil.converterCalendarParaString(Calendar.getInstance());
-        Insumo insumo = new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), dataString);
+        Insumo insumo = new Insumo(nome.getText().toString(), unidade.getText().toString(), Double.parseDouble(estoque.getText().toString()), Calendar.getInstance());
         return insumo;
     }
 

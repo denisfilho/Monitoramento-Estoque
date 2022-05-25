@@ -1,10 +1,11 @@
-package projeto.monitoramentoestoque.model;
+package projeto.monitoramentoestoque.model.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 @Entity
 public class Insumo implements Serializable {
@@ -22,9 +23,9 @@ public class Insumo implements Serializable {
     private double estoqueAtual;
 
     @ColumnInfo(name = "INSUMO_ULTIMA_ATT")
-    private String dataUltimaAtualizacao;
+    private Calendar dataUltimaAtualizacao;
 
-    public Insumo(String nome, String unidade, double estoqueAtual, String dataUltimaAtualizacao) {
+    public Insumo(String nome, String unidade, double estoqueAtual, Calendar dataUltimaAtualizacao) {
         this.nome = nome;
         this.unidade = unidade;
         this.estoqueAtual = estoqueAtual;
@@ -43,7 +44,7 @@ public class Insumo implements Serializable {
         return unidade;
     }
 
-    public String getDataUltimaAtualizacao() {
+    public Calendar getDataUltimaAtualizacao() {
         return dataUltimaAtualizacao;
     }
 
@@ -55,7 +56,7 @@ public class Insumo implements Serializable {
         this.estoqueAtual = estoqueAtual;
     }
 
-    public void setDataUltimaAtualizacao(String dataUltimaAtualizacao) {
+    public void setDataUltimaAtualizacao(Calendar dataUltimaAtualizacao) {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
@@ -63,14 +64,4 @@ public class Insumo implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Insumo{" +
-                "id=" + id +
-                ", unidade='" + unidade + '\'' +
-                ", nome='" + nome + '\'' +
-                ", estoqueAtual=" + estoqueAtual +
-                ", dataUltimaAtualizacao=" + dataUltimaAtualizacao +
-                '}';
-    }
 }

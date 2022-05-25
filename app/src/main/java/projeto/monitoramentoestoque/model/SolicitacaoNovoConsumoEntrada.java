@@ -2,6 +2,8 @@ package projeto.monitoramentoestoque.model;
 
 import java.io.Serializable;
 
+import projeto.monitoramentoestoque.model.entities.Insumo;
+
 public class SolicitacaoNovoConsumoEntrada implements Serializable {
     private String tipoDeSolicitacao;
     private Insumo insumo;
